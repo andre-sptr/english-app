@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(office-hours)",
+      "Skill(office-hours:*)",
+      "PowerShell(New-Item -ItemType Directory -Path \"D:\\\\english-app\\\\spike\" -Force)",
+      "PowerShell(Start-Sleep -Seconds 5; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 5 -UseBasicParsing; Write-Host \"HTTP $\\($r.StatusCode\\) — server is up\" } catch { Write-Host \"Not ready yet: $_\" })",
+      "Bash(rtk read *)",
+      "Bash(rtk ls *)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(rtk npm *)",
+      "Bash(curl -s http://localhost:3000/api/debug)",
+      "Bash(netstat -tlnp)"
+    ]
+  }
+}

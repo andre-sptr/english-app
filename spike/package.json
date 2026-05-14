@@ -1,0 +1,11 @@
+{
+  "name": "toefl-scoring-spike",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "spike": "node scoring-spike.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  }
+}

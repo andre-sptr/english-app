@@ -1,0 +1,125 @@
+{
+  "task": "Some people like to spend their free time outdoors. Others prefer to stay inside. Which do you prefer? Use details and examples to support your answer.",
+  "responses": [
+    {
+      "id": 1,
+      "label": "High - fluent, rich vocab, well-developed",
+      "reference": { "delivery": 4, "language_use": 4, "topic_development": 4 },
+      "text": "I definitely prefer spending my free time outdoors. For me, being outside provides both physical and mental benefits that I can't get from staying indoors. For example, last summer, I started hiking every weekend in the mountains near my city. Not only did this help me stay physically fit, but it also gave me a chance to disconnect from technology and clear my mind. Additionally, outdoor activities allow me to socialize more naturally. When I'm at a park or on a trail, I often meet interesting people who share similar interests. This has expanded my social circle considerably. So, for health, mental clarity, and social connection, outdoor time is my clear preference."
+    },
+    {
+      "id": 2,
+      "label": "High - fluent delivery, good vocab with minor imprecision, strong development",
+      "reference": { "delivery": 4, "language_use": 3, "topic_development": 4 },
+      "text": "I prefer to spend my free time outdoors because it's much more refreshing than staying inside. When I go outside, I feel my stress is reduced. For instance, whenever I have a difficult week at school, I like to go to the park near my house and just sit there or walk around. The fresh air and sunlight really help me feel better. Also, outdoor activities like jogging or playing badminton with my friends are good for my health. I think people who stay inside too much can become not very healthy. So outdoor activities are important for both my physical and mental health."
+    },
+    {
+      "id": 3,
+      "label": "High vocab/grammar, clear but uneven pacing, somewhat limited development",
+      "reference": { "delivery": 3, "language_use": 4, "topic_development": 3 },
+      "text": "My preference tends toward outdoor activities, primarily because it facilitates a more dynamic lifestyle. The psychological benefits of natural environments have been well-documented, and I've experienced them firsthand. However, I should acknowledge that my outdoor activities tend to be rather conventional. I enjoy cycling in the park, taking walks along the waterfront. While I appreciate the benefits, I sometimes find that my outdoor excursions lack the variety I'd prefer. That said, even simple outdoor activities provide a beneficial contrast to my predominantly indoor work life. The main drawback I'd mention is weather dependency, which can occasionally disrupt planned activities."
+    },
+    {
+      "id": 4,
+      "label": "Mid-high - decent fluency, functional language, basic elaboration",
+      "reference": { "delivery": 3, "language_use": 3, "topic_development": 3 },
+      "text": "I like to spend my free time outside because I think it's healthier. Uh, when I stay inside too long, I feel kind of bored and my body feels tired. But when I go outside, like to the park or play sports with my friends, I feel much more energetic and happy. I think nature is very good for people's mood. For example, when I feel stressed about my studies, sometimes I just take a walk and I feel better after that. Also, outdoor sports help me maintain my weight and stay healthy. So I prefer outdoor activities because they benefit both my physical and mental health."
+    },
+    {
+      "id": 5,
+      "label": "Mid-high - minor disfluency, functional language, well-developed with examples",
+      "reference": { "delivery": 3, "language_use": 3, "topic_development": 4 },
+      "text": "I strongly prefer spending my free time outdoors. I think the most important reason is the opportunity for exercise. In my country, many young people today spend too much time looking at screens, and this has serious health consequences. When I go outside, for example to play football with my neighbors or to ride my bicycle, I'm getting physical activity that benefits my heart and muscles. Another reason is that outdoor time allows me to reconnect with nature, which reduces my anxiety significantly. I remember last year when I was preparing for important exams, taking short breaks outside my house helped me stay focused when I returned to study. These concrete benefits make outdoor time very valuable to me."
+    },
+    {
+      "id": 6,
+      "label": "Mid - frequent hesitations, basic language, minimal elaboration",
+      "reference": { "delivery": 2, "language_use": 3, "topic_development": 3 },
+      "text": "Uh... I think... I prefer outdoors time. Because... uh, it is good for health and... the nature is beautiful. When I go outside, I can... I can see trees and flowers and feel the fresh air. This is very... relaxing for me. Also I like to play sport outside. Like, uh, badminton, I play with my brother every Sunday. This is fun. Staying inside is too boring. You just sit and watch TV or use handphone. So I think outside is better for people."
+    },
+    {
+      "id": 7,
+      "label": "Mid - mostly intelligible, limited range and errors, ideas listed without elaboration",
+      "reference": { "delivery": 3, "language_use": 2, "topic_development": 2 },
+      "text": "I prefer outdoor time. Because outdoor is more healthy and fun than indoor. Many reason why I like outdoor. First, the fresh air is important for the body. Second, outdoor activity make the body strong. The sunlight also give vitamin for us. When I go outdoor I feel happy and not stress. I like go to park, river, mountain. All this place is beautiful and can make relax. But indoor also have good things. You can study and rest in indoor. But I think outdoor is better for free time because it make you healthy and enjoy life."
+    },
+    {
+      "id": 8,
+      "label": "Mid - choppy delivery, basic errors, has one specific example",
+      "reference": { "delivery": 2, "language_use": 2, "topic_development": 3 },
+      "text": "Uh... I want to say about outdoor time. I prefer outdoor because... many benefit. Like, healthy body, uh... fresh air, also... meet friend outside. I think outdoor is important for student because in school we sit many hour. So after school go outside is good idea. For example, uh... last week I play basketball with my classmate at the school field after class. We very enjoy and forget the stress from studying. This kind of outdoor activity is very important for us. Inside house is too boring, nothing interesting to do. So my answer is outdoor is better."
+    },
+    {
+      "id": 9,
+      "label": "Mid-low - choppy, basic errors throughout, repetitive ideas",
+      "reference": { "delivery": 2, "language_use": 2, "topic_development": 2 },
+      "text": "I like... outdoor. Because outdoor is fun and healthy. Uh, I think... outdoor have many benefit. The air is fresh, the view is beautiful. I like go to park or beach. There I can enjoy nature and relax. Also outdoor sport is good. Like run, swim, play ball. These sport make body healthy. Inside house is boring. Just sit, no activity. So outdoor is my choice for free time. Because outdoor more healthy, more fun, more beautiful than indoor."
+    },
+    {
+      "id": 10,
+      "label": "Mid-low - mostly clear, limited vocab and errors, lists ideas without examples",
+      "reference": { "delivery": 3, "language_use": 2, "topic_development": 2 },
+      "text": "My preference is outdoor for my free time. Outdoor activity is good for health, that is the main reason. Also outdoor can make us feel happy and reduce the stress from daily life. I like many outdoor activity such as jogging, cycling, playing sport with friend. These activity is enjoyable and can keep the body healthy. Moreover, outdoor give us the opportunity to enjoy the beauty of nature. We can see tree, flower, bird, and many beautiful thing. This is not possible if we stay indoor. So for all these reason, I choose outdoor for my free time activity."
+    },
+    {
+      "id": 11,
+      "label": "Low - severe disfluency, very fragmented speech",
+      "reference": { "delivery": 1, "language_use": 2, "topic_development": 2 },
+      "text": "I... outdoor... I prefer outdoor time because... uh... good for health. The... the nature is... beautiful. Uh... I like go outside with... with my friend. We... we play sport and... and enjoy the day. Also... fresh air is... is good. Better than stay inside. Uh... I think outdoor is... is the best choice. Because... because many benefit for the body and... and the mind. So... yes, outdoor is my answer."
+    },
+    {
+      "id": 12,
+      "label": "Low - intelligible but highly repetitive, very limited vocabulary",
+      "reference": { "delivery": 2, "language_use": 1, "topic_development": 2 },
+      "text": "I prefer the outdoor because outdoor is very good. Outdoor has many thing that is good. Like fresh air, beautiful nature, and also good for health. I always go to outdoor in my free time because I like it very much. Outdoor make me happy. Indoor is not good because indoor is boring and there is nothing to do. So outdoor is better. I think everybody must go outdoor because outdoor give many benefit and make people healthy and happy. That is why I choose outdoor for my free time."
+    },
+    {
+      "id": 13,
+      "label": "Low - highly fragmented delivery, very limited expression",
+      "reference": { "delivery": 1, "language_use": 1, "topic_development": 2 },
+      "text": "Uh... outdoor... I... uh... outdoor is good. I like... outdoor. Uh... because... because... uh... fresh air and... healthy. I think... outdoor is better than indoor. Uh... many benefit... from outdoor. Like... uh... exercise, nature, friend. Yeah. So I prefer outdoor. Uh... I go to park with family sometimes. It is... enjoyable. Yeah. Outdoor is my... my preference for free time."
+    },
+    {
+      "id": 14,
+      "label": "Very low - severe disfluency and near-zero content",
+      "reference": { "delivery": 1, "language_use": 1, "topic_development": 1 },
+      "text": "I... uh... like outdoor. Because... uh... outdoor... good. Uh... fresh air... healthy. I... I prefer outdoor. Because... because nice. Uh... outdoor is... uh... I don't know how to say... uh... good for body. Yes. Outdoor is good. That is... uh... my answer."
+    },
+    {
+      "id": 15,
+      "label": "Mixed - very fluent delivery, but many grammar errors, decent development",
+      "reference": { "delivery": 4, "language_use": 2, "topic_development": 3 },
+      "text": "I definitely prefer spending my free time outdoors rather than staying inside. There are two main reason why I think outdoor time is more valuable. First, outdoor activity is good for physical health because you move your body and breathe fresh air. Second, outdoor environment can reduce stress and make the mind more relax. For example, when I feel tired from study, I always go jogging in the park near my house and after that I always feel more better. So in conclusion, I think outdoor time is very important for both body and mind health, and that is why I prefer it."
+    },
+    {
+      "id": 16,
+      "label": "Mixed - advanced vocabulary but very halting delivery, limited content",
+      "reference": { "delivery": 2, "language_use": 4, "topic_development": 2 },
+      "text": "My preference... uh... tends toward outdoor activities, though I acknowledge... uh... that this varies considerably based on circumstances. The psychological and physiological benefits of outdoor engagement are well-established, and... uh... I've personally found that... uh... exposure to natural environments... uh... significantly alleviates my... my cognitive fatigue. However, I struggle to... to articulate specific instances... uh... that would illustrate... uh... this point concretely. The fundamental distinction between indoor and outdoor leisure... is really about... about the quality of stimulation... uh... one receives."
+    },
+    {
+      "id": 17,
+      "label": "Mixed - generally clear, adequate language, multiple ideas without examples",
+      "reference": { "delivery": 3, "language_use": 3, "topic_development": 2 },
+      "text": "I prefer to spend free time outside. Outdoor activities give me energy and make my mood good. I like to do jogging, play badminton, or just walk in the park. These activities help me to relax after long day of studying or working. Also, outside I can meet my friends and we enjoy time together. But I think the most important thing about outdoor time is the fresh air and sunlight. These things are important for health and... uh, give us vitamin D. So outdoor is better choice for free time."
+    },
+    {
+      "id": 18,
+      "label": "Mixed - choppy delivery, basic errors, but strong narrative with specific story",
+      "reference": { "delivery": 2, "language_use": 2, "topic_development": 4 },
+      "text": "Uh... I think outdoor is my preference. Uh... let me explain. When I was in high school, my teacher always tell us that outdoor activity is very important for student. So every weekend, uh... I go to the... uh... sports field with my classmate. We play football or just run. After this activity, I always... uh... feel much more fresh and ready to study again. I remember one time when I had very important exam, I was very stress. But then I go outside for one hour and after that I can think more clearly. So outdoor activity really help student to perform better in school."
+    },
+    {
+      "id": 19,
+      "label": "High - natural fluency, rich language, excellent developed narrative",
+      "reference": { "delivery": 4, "language_use": 4, "topic_development": 4 },
+      "text": "Without question, I'd choose outdoor activities for my free time. Living in a city, I find that getting outside, even just for an hour, completely resets my perspective. Last month, my university friends and I organized a weekend camping trip. Not only did we disconnect from social media and the pressures of our coursework, but we also learned practical skills like setting up tents and cooking over an open fire. That experience made me realize how much I'd been missing by staying indoors. Of course, not every outdoor activity needs to be so elaborate. Sometimes a simple evening walk around the neighborhood is enough to clear my head and restore my motivation. For me, outdoor time is non-negotiable."
+    },
+    {
+      "id": 20,
+      "label": "Good - generally clear, sophisticated language, good examples but somewhat abstract",
+      "reference": { "delivery": 3, "language_use": 4, "topic_development": 3 },
+      "text": "I strongly prefer spending free time outdoors. Being outside, whether in a park, on a trail, or at a sports facility, provides stimulation that indoor environments simply cannot replicate. The interplay between physical activity and natural surroundings creates a distinctly restorative experience. While I appreciate the comfort of indoor spaces, I've found that my most memorable leisure moments have invariably occurred outdoors: competitive sports, spontaneous conversations with neighbors, even the simple pleasure of watching the sunset from a rooftop terrace. That said, I acknowledge that outdoor preference is somewhat weather-dependent, and during monsoon season, my enthusiasm for outdoor activities naturally diminishes. Nevertheless, whenever conditions permit, outdoor time is my default choice."
+    }
+  ]
+}

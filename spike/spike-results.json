@@ -1,0 +1,339 @@
+{
+  "timestamp": "2026-05-14T11:34:16.718Z",
+  "model": "claude-haiku-4-5-20251001",
+  "gate": {
+    "threshold": 0.65,
+    "passed": true
+  },
+  "overall": {
+    "r": 0.8992443948948357,
+    "mae": 0.2666666666666666
+  },
+  "perDimension": {
+    "delivery": 0.8585743763859384,
+    "language_use": 0.8987170342729169,
+    "topic_development": 0.6853357876371914
+  },
+  "results": [
+    {
+      "id": 1,
+      "ref": 4,
+      "refRaw": {
+        "delivery": 4,
+        "language_use": 4,
+        "topic_development": 4
+      },
+      "haiku": 4,
+      "haikuRaw": {
+        "delivery": 4,
+        "language_use": 4,
+        "topic_development": 4,
+        "reasoning": "The response demonstrates clear, fluid delivery with natural pacing; sophisticated grammar and vocabulary used with high control; and well-developed, coherent ideas with specific examples (hiking in mountains) that clearly support the stated preference and address all prompt requirements."
+      }
+    },
+    {
+      "id": 2,
+      "ref": 3.6666666666666665,
+      "refRaw": {
+        "delivery": 4,
+        "language_use": 3,
+        "topic_development": 4
+      },
+      "haiku": 3,
+      "haikuRaw": {
+        "delivery": 3,
+        "language_use": 3,
+        "topic_development": 3,
+        "reasoning": "Speech is generally clear with minor pronunciation issues and good pacing; grammar and vocabulary are appropriate with mostly effective structures; ideas are relevant and coherent with reasonable elaboration through examples, though could be more specific and detailed."
+      }
+    },
+    {
+      "id": 3,
+      "ref": 3.3333333333333335,
+      "refRaw": {
+        "delivery": 3,
+        "language_use": 4,
+        "topic_development": 3
+      },
+      "haiku": 3.3333333333333335,
+      "haikuRaw": {
+        "delivery": 3,
+        "language_use": 4,
+        "topic_development": 3,
+        "reasoning": "The response demonstrates strong grammatical control and sophisticated vocabulary with clear delivery, but topic development is somewhat limited as it lacks specific, vivid examples despite adequate elaboration on the general preference."
+      }
+    },
+    {
+      "id": 4,
+      "ref": 3,
+      "refRaw": {
+        "delivery": 3,
+        "language_use": 3,
+        "topic_development": 3
+      },
+      "haiku": 3,
+      "haikuRaw": {
+        "delivery": 3,
+        "language_use": 3,
+        "topic_development": 3,
+        "reasoning": "Response demonstrates generally clear delivery with minor hesitation ('uh'), fairly effective grammar and vocabulary with some basic structures, and coherent topic development with relevant examples (park, sports, walks) that support the preference, though elaboration could be more specific and detailed."
+      }
+    },
+    {
+      "id": 5,
+      "ref": 3.3333333333333335,
+      "refRaw": {
+        "delivery": 3,
+        "language_use": 3,
+        "topic_development": 4
+      },
+      "haiku": 3,
+      "haikuRaw": {
+        "delivery": 3,
+        "language_use": 3,
+        "topic_development": 3,
+        "reasoning": "The response is generally clear and fluent with mostly natural pacing, though occasional word choice and grammatical precision issues require minor listener effort. Language demonstrates good control of complex structures with mostly accurate use, though some imprecision exists. Topic development is coherent with relevant supporting examples (football, cycling, exam breaks) that substantiate the main idea, though elaboration could be more specific."
+      }
+    },
+    {
+      "id": 6,
+      "ref": 2.6666666666666665,
+      "refRaw": {
+        "delivery": 2,
+        "language_use": 3,
+        "topic_development": 3
+      },
+      "haiku": 2,
+      "haikuRaw": {
+        "delivery": 2,
+        "language_use": 2,
+        "topic_development": 2,
+        "reasoning": "Response shows choppy rhythm with frequent hesitations and pauses that require listener effort; grammar and vocabulary are basic with limited range and control; topic is addressed with relevant ideas but lacks elaboration and specificity beyond simple examples."
+      }
+    },
+    {
+      "id": 7,
+      "ref": 2.3333333333333335,
+      "refRaw": {
+        "delivery": 3,
+        "language_use": 2,
+        "topic_development": 2
+      },
+      "haiku": 2.6666666666666665,
+      "haikuRaw": {
+        "delivery": 3,
+        "language_use": 2,
+        "topic_development": 3,
+        "reasoning": "Speech is generally intelligible with minor pronunciation issues and adequate pacing; grammatical errors (subject-verb agreement, article misuse) and limited vocabulary range impede clarity; response addresses the prompt with relevant supporting ideas but lacks specific examples and elaboration."
+      }
+    },
+    {
+      "id": 8,
+      "ref": 2.3333333333333335,
+      "refRaw": {
+        "delivery": 2,
+        "language_use": 2,
+        "topic_development": 3
+      },
+      "haiku": 2,
+      "haikuRaw": {
+        "delivery": 2,
+        "language_use": 2,
+        "topic_development": 2,
+        "reasoning": "Response is basically intelligible with multiple hesitations and pauses, limited grammatical control (omitted subjects, verb errors like 'We very enjoy'), and underdeveloped ideas that lack specificity and elaboration beyond basic examples."
+      }
+    },
+    {
+      "id": 9,
+      "ref": 2,
+      "refRaw": {
+        "delivery": 2,
+        "language_use": 2,
+        "topic_development": 2
+      },
+      "haiku": 2,
+      "haikuRaw": {
+        "delivery": 2,
+        "language_use": 2,
+        "topic_development": 2,
+        "reasoning": "The response addresses the prompt with basic ideas but suffers from choppy delivery with hesitations, frequent grammatical errors (subject-verb agreement, article usage), limited vocabulary range, and minimal elaboration on examples, requiring listener effort throughout."
+      }
+    },
+    {
+      "id": 10,
+      "ref": 2.3333333333333335,
+      "refRaw": {
+        "delivery": 3,
+        "language_use": 2,
+        "topic_development": 2
+      },
+      "haiku": 2.6666666666666665,
+      "haikuRaw": {
+        "delivery": 3,
+        "language_use": 2,
+        "topic_development": 3,
+        "reasoning": "Speech is generally intelligible with minor pronunciation issues, but grammatical errors (subject-verb agreement, article usage) and limited vocabulary range interfere with communication; topic is adequately developed with relevant examples but lacks specificity and elaboration."
+      }
+    },
+    {
+      "id": 11,
+      "ref": 1.6666666666666667,
+      "refRaw": {
+        "delivery": 1,
+        "language_use": 2,
+        "topic_development": 2
+      },
+      "haiku": 2,
+      "haikuRaw": {
+        "delivery": 2,
+        "language_use": 2,
+        "topic_development": 2,
+        "reasoning": "The response shows frequent hesitations and grammatical errors (omitted subjects, awkward verb forms like 'like go'), limited vocabulary range, and basic idea development with minimal elaboration or specific examples, requiring significant listener effort to understand."
+      }
+    },
+    {
+      "id": 12,
+      "ref": 1.6666666666666667,
+      "refRaw": {
+        "delivery": 2,
+        "language_use": 1,
+        "topic_development": 2
+      },
+      "haiku": 2.3333333333333335,
+      "haikuRaw": {
+        "delivery": 3,
+        "language_use": 2,
+        "topic_development": 2,
+        "reasoning": "Speech is generally clear and understandable with minor pronunciation issues, but grammatical errors (subject-verb agreement, article misuse) and repetitive simple structures limit language control; topic is addressed with basic ideas (fresh air, health, happiness) but lacks specific examples, elaboration, and coherent development of supporting points."
+      }
+    },
+    {
+      "id": 13,
+      "ref": 1.3333333333333333,
+      "refRaw": {
+        "delivery": 1,
+        "language_use": 1,
+        "topic_development": 2
+      },
+      "haiku": 1.3333333333333333,
+      "haikuRaw": {
+        "delivery": 1,
+        "language_use": 1,
+        "topic_development": 2,
+        "reasoning": "Delivery is severely hindered by excessive hesitations, filled pauses, and fragmented utterances that require significant listener effort. Language use shows severely limited grammar (missing articles, incomplete structures like 'many benefit...from outdoor') and minimal vocabulary control that prevents clear expression. Topic development includes a basic preference statement with minimal elaboration—only vague ideas (fresh air, healthy, exercise, nature) without specific details or examples as requested."
+      }
+    },
+    {
+      "id": 14,
+      "ref": 1,
+      "refRaw": {
+        "delivery": 1,
+        "language_use": 1,
+        "topic_development": 1
+      },
+      "haiku": 1,
+      "haikuRaw": {
+        "delivery": 1,
+        "language_use": 1,
+        "topic_development": 1,
+        "reasoning": "Response demonstrates severe communication difficulty with frequent hesitations, fragmented phrases, minimal grammatical accuracy, and insufficient topic development lacking any specific details or examples."
+      }
+    },
+    {
+      "id": 15,
+      "ref": 3,
+      "refRaw": {
+        "delivery": 4,
+        "language_use": 2,
+        "topic_development": 3
+      },
+      "haiku": 3,
+      "haikuRaw": {
+        "delivery": 3,
+        "language_use": 3,
+        "topic_development": 3,
+        "reasoning": "Response is generally clear with minor pronunciation/fluency issues; contains some grammatical errors (reason/reasons, more relax, more better) but meaning is clear; develops the topic with relevant ideas (physical health, stress reduction) and a personal example, though elaboration could be more specific and detailed."
+      }
+    },
+    {
+      "id": 16,
+      "ref": 2.6666666666666665,
+      "refRaw": {
+        "delivery": 2,
+        "language_use": 4,
+        "topic_development": 2
+      },
+      "haiku": 2.3333333333333335,
+      "haikuRaw": {
+        "delivery": 2,
+        "language_use": 3,
+        "topic_development": 2,
+        "reasoning": "Delivery is hindered by frequent disfluencies ('uh', repetitions, false starts) requiring listener effort; language use shows sophisticated vocabulary and grammar but lacks automaticity; topic development is problematic because despite complex language, the response fails to provide concrete details or examples as explicitly requested, remaining largely abstract and vague."
+      }
+    },
+    {
+      "id": 17,
+      "ref": 2.6666666666666665,
+      "refRaw": {
+        "delivery": 3,
+        "language_use": 3,
+        "topic_development": 2
+      },
+      "haiku": 3,
+      "haikuRaw": {
+        "delivery": 3,
+        "language_use": 3,
+        "topic_development": 3,
+        "reasoning": "The response demonstrates generally clear delivery with minor fluency dips (uh pause), fairly effective language with some imprecision (\"outdoor is better choice\" lacks articles), and coherent topic development with relevant examples and reasons, though elaboration could be more detailed and specific."
+      }
+    },
+    {
+      "id": 18,
+      "ref": 2.6666666666666665,
+      "refRaw": {
+        "delivery": 2,
+        "language_use": 2,
+        "topic_development": 4
+      },
+      "haiku": 2.3333333333333335,
+      "haikuRaw": {
+        "delivery": 2,
+        "language_use": 2,
+        "topic_development": 3,
+        "reasoning": "Delivery is choppy with frequent hesitations and pauses that require listener effort; language use shows grammatical errors (tell/told, help/helps) and limited range; topic development is mostly coherent with relevant examples but lacks elaboration and specificity."
+      }
+    },
+    {
+      "id": 19,
+      "ref": 4,
+      "refRaw": {
+        "delivery": 4,
+        "language_use": 4,
+        "topic_development": 4
+      },
+      "haiku": 4,
+      "haikuRaw": {
+        "delivery": 4,
+        "language_use": 4,
+        "topic_development": 4,
+        "reasoning": "The response demonstrates clear, fluent delivery with excellent grammar and vocabulary; effectively develops the topic with specific, well-elaborated examples (camping trip, evening walks) that directly support the stated preference, showing sustained coherence throughout."
+      }
+    },
+    {
+      "id": 20,
+      "ref": 3.3333333333333335,
+      "refRaw": {
+        "delivery": 3,
+        "language_use": 4,
+        "topic_development": 3
+      },
+      "haiku": 4,
+      "haikuRaw": {
+        "delivery": 4,
+        "language_use": 4,
+        "topic_development": 4,
+        "reasoning": "The response demonstrates near-native fluency with clear articulation, sophisticated vocabulary (interplay, restorative, invariably), complex grammatical structures, and well-developed ideas supported by specific examples that directly address the prompt."
+      }
+    }
+  ]
+}
