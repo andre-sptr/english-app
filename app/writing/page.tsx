@@ -34,7 +34,7 @@ export default function WritingPage() {
         </Link>
         <div>
           <h1 className="font-bold text-gray-900 text-lg">Pilih Soal Writing</h1>
-          <p className="text-xs text-gray-400">Gratis 2 sesi per hari</p>
+          <p className="text-xs text-gray-500">Gratis 2 sesi per hari</p>
         </div>
       </div>
 

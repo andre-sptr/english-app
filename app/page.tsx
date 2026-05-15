@@ -133,7 +133,7 @@ export default function Home() {
         </div>
       </section>
 
-      <p className="text-center text-xs text-gray-400 py-6">Gratis · Tanpa login · Data tersimpan di perangkat</p>
+      <p className="text-center text-xs text-gray-500 py-6">Gratis · Tanpa login · Data tersimpan di perangkat</p>
     </main>
   );
 }

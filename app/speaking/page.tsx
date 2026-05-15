@@ -35,7 +35,7 @@ export default function SpeakingPage() {
         </Link>
         <div>
           <h1 className="font-bold text-gray-900 text-lg">Pilih Soal Speaking</h1>
-          <p className="text-xs text-gray-400">Gratis 3 sesi per hari</p>
+          <p className="text-xs text-gray-500">Gratis 3 sesi per hari</p>
         </div>
       </div>
 
