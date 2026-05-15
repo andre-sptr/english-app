@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ArrowRight, BookOpen, CheckCircle2, Layers3, Repeat2 } from "lucide-react";
+import { IconTile, LinkButton, MetricCard, PageHeader, Pill } from "@/components/ui";
 import { VOCAB_WORDS, VOCAB_IDS } from "@/lib/vocab-words";
 import { loadCards, getDueCards, getMasteredCount } from "@/lib/srs";
 
@@ -18,82 +20,80 @@ export default function VocabPage() {
   const progressPct = Math.round((masteredCount / VOCAB_WORDS.length) * 100);
 
   return (
-    <main className="flex flex-col gap-6 pt-8">
-      <div className="flex items-center gap-3">
-        <Link href="/" className="text-gray-400 hover:text-gray-600 transition-colors">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </Link>
-        <div>
-          <h1 className="font-display text-2xl leading-tight text-ink">Vocabulary TOEFL</h1>
-          <p className="text-xs text-muted">{VOCAB_WORDS.length} kata akademik penting</p>
-        </div>
-      </div>
+    <main className="page-container">
+      <PageHeader
+        backHref="/"
+        eyebrow="Vocab Review"
+        title="Vocabulary TOEFL"
+        description={`${VOCAB_WORDS.length} kata akademik penting dengan spaced repetition sederhana agar review terasa ringan dan konsisten.`}
+        actions={<Pill tone="gold">SRS otomatis</Pill>}
+      />
 
-      {/* Stats */}
-      <div className="grid grid-cols-3 gap-3">
-        <div className="rounded-xl bg-surface border border-subtle p-3 text-center shadow-sm">
-          <p className="font-display text-3xl leading-none text-ink">{dueCount}</p>
-          <p className="text-xs text-gray-400 mt-0.5">Harus review</p>
-        </div>
-        <div className="rounded-xl bg-surface border border-subtle p-3 text-center shadow-sm">
-          <p className="font-display text-3xl leading-none text-ink">{masteredCount}</p>
-          <p className="text-xs text-gray-400 mt-0.5">Dikuasai</p>
-        </div>
-        <div className="rounded-xl bg-surface border border-subtle p-3 text-center shadow-sm">
-          <p className="font-display text-3xl leading-none text-ink">{progressPct}%</p>
-          <p className="text-xs text-gray-400 mt-0.5">Progress</p>
-        </div>
-      </div>
+      <section className="mt-6 grid gap-4 sm:grid-cols-3">
+        <MetricCard value={dueCount} label="Harus review" helper="Kartu yang jatuh tempo hari ini" tone="brand" />
+        <MetricCard value={masteredCount} label="Dikuasai" helper="Benar berulang dengan interval" tone="teal" />
+        <MetricCard value={`${progressPct}%`} label="Progress" helper={`${masteredCount}/${VOCAB_WORDS.length} kata`} tone="gold" />
+      </section>
 
-      {/* Progress bar */}
-      <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm">
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-sm font-medium text-gray-700">Penguasaan Kosakata</p>
-          <span className="text-xs text-gray-400">{masteredCount}/{VOCAB_WORDS.length}</span>
+      <section className="mt-6 rounded-3xl border border-line bg-white p-5 shadow-card">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-muted">Penguasaan Kosakata</p>
+            <p className="mt-1 text-sm leading-relaxed text-secondary">Kata dikuasai setelah benar beberapa kali dengan interval review yang semakin panjang.</p>
+          </div>
+          <Pill tone="neutral">{masteredCount}/{VOCAB_WORDS.length}</Pill>
         </div>
-        <div className="h-3 rounded-full bg-gray-100 overflow-hidden">
+        <div className="mt-5 h-3 overflow-hidden rounded-full bg-surface-2">
           <div
-            className="h-full rounded-full bg-brand-500 transition-all duration-700"
+            className="h-full rounded-full bg-brand-600 transition-all duration-700"
             style={{ width: `${progressPct}%` }}
           />
         </div>
-        <p className="text-xs text-gray-400 mt-2">
-          Kata "dikuasai" = benar ≥3 kali dengan interval ≥7 hari
-        </p>
-      </div>
+      </section>
 
-      {/* CTA */}
-      {dueCount > 0 ? (
-        <Link
-          href="/vocab/review"
-          className="block w-full py-4 rounded-2xl bg-ink hover:bg-ink/90 active:scale-95 transition-all text-white text-center text-lg font-semibold shadow-lg"
-        >
-          Review {dueCount} Kata Sekarang
-        </Link>
-      ) : (
-        <div className="rounded-2xl bg-green-50 border border-green-100 p-5 text-center">
-          <p className="text-green-700 font-semibold">Semua kata sudah di-review!</p>
-          <p className="text-sm text-green-600 mt-1">Kembali lagi nanti untuk review berikutnya.</p>
-        </div>
-      )}
-
-      {/* Word list preview */}
-      <div>
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Semua Kata</p>
-        <div className="flex flex-col gap-2">
-          {VOCAB_WORDS.map((w) => (
-            <div key={w.id} className="rounded-xl bg-surface border border-subtle px-4 py-3 flex items-center justify-between shadow-sm">
+      <section className="mt-6">
+        {dueCount > 0 ? (
+          <LinkButton href="/vocab/review" variant="primary" className="w-full sm:w-auto">
+            <Repeat2 className="h-4 w-4" />
+            Review {dueCount} kata sekarang
+          </LinkButton>
+        ) : (
+          <div className="rounded-3xl border border-green-100 bg-green-50 p-5 text-green-700 shadow-soft">
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" />
               <div>
-                <span className="font-semibold text-gray-800 text-sm">{w.word}</span>
-                <span className="text-xs text-gray-400 ml-2">({w.partOfSpeech})</span>
+                <p className="font-extrabold">Semua kata sudah di-review.</p>
+                <p className="mt-1 text-sm leading-relaxed">Kembali lagi nanti untuk jadwal review berikutnya.</p>
               </div>
-              <p className="text-xs text-gray-500 text-right max-w-[55%] line-clamp-1">{w.definition}</p>
+            </div>
+          </div>
+        )}
+      </section>
+
+      <section className="mt-8">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <div>
+            <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-muted">Semua Kata</p>
+            <p className="mt-1 text-sm text-secondary">Preview cepat sebelum masuk ke mode review.</p>
+          </div>
+          <IconTile tone="gold">
+            <Layers3 className="h-5 w-5" />
+          </IconTile>
+        </div>
+        <div className="grid gap-3 lg:grid-cols-2">
+          {VOCAB_WORDS.map((w) => (
+            <div key={w.id} className="rounded-2xl border border-line bg-white px-4 py-3 shadow-soft">
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="text-sm font-black text-ink">{w.word}</p>
+                  <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-muted">{w.partOfSpeech}</p>
+                </div>
+                <p className="max-w-[58%] text-right text-xs leading-6 text-secondary line-clamp-2">{w.definition}</p>
+              </div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
     </main>
   );
 }

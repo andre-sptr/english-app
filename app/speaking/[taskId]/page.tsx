@@ -2,13 +2,15 @@
 
 import { use, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { FileText, ListChecks, Loader2, RefreshCw } from "lucide-react";
 import { getPromptById } from "@/lib/prompts";
 import AudioRecorder from "@/components/AudioRecorder";
 import ScoreCard from "@/components/ScoreCard";
 import type { PracticePhase, RubricScores } from "@/types";
-import { notFound } from "next/navigation";
 import { ensureAnonymousAuth, getSessionCount, checkAndIncrementSession, saveSession } from "@/lib/firebase";
 import EmailUpgradeSheet from "@/components/EmailUpgradeSheet";
+import { Button, Card, LinkButton, PageHeader, Pill, StatusNote } from "@/components/ui";
 
 interface PageProps {
   params: Promise<{ taskId: string }>;
@@ -52,7 +54,6 @@ export default function PracticePage({ params }: PageProps) {
     setStreaming(true);
 
     try {
-      // Gate: check + increment session counter before scoring
       if (uid) {
         const { allowed, used } = await checkAndIncrementSession(uid, "speaking");
         setSessionUsed(used);
@@ -84,7 +85,6 @@ export default function PracticePage({ params }: PageProps) {
         if (done) break;
         full += decoder.decode(value, { stream: true });
 
-        // Split on [SCORES] marker
         const markerIdx = full.indexOf("[SCORES]");
         if (markerIdx === -1) {
           setStreamedText(full);
@@ -98,7 +98,7 @@ export default function PracticePage({ params }: PageProps) {
               finalScores = JSON.parse(jsonMatch[0]) as RubricScores;
               setScores(finalScores);
             } catch {
-              // JSON not complete yet — keep waiting
+              // Keep waiting until streamed JSON is complete.
             }
           }
         }
@@ -106,13 +106,11 @@ export default function PracticePage({ params }: PageProps) {
 
       setPhase("result");
 
-      // Soft email upgrade prompt after 2nd session
       if (isAnonymous && sessionUsed >= 2) {
         const dismissed = sessionStorage.getItem("upgrade-dismissed");
         if (!dismissed) setShowUpgrade(true);
       }
 
-      // Save to Firestore (fire-and-forget)
       if (uid && finalScores) {
         saveSession(uid, {
           promptId: prompt.id,
@@ -147,134 +145,107 @@ export default function PracticePage({ params }: PageProps) {
   };
 
   const typeLabel = prompt.type === "independent" ? "Independent" : "Integrated";
-  const typeColor = prompt.type === "independent"
-    ? "bg-brand-50 text-brand-700 border-brand-100"
-    : "bg-purple-50 text-purple-700 border-purple-100";
+  const typeTone = prompt.type === "independent" ? "brand" : "purple";
+  const sessionsLeft = Math.max(0, SESSION_LIMIT - sessionUsed);
 
   return (
-    <main className="flex flex-col gap-5 pt-8">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <Link href="/speaking" className="text-gray-400 hover:text-gray-600 transition-colors">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </Link>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${typeColor}`}>
-              {typeLabel}
-            </span>
-            <span className="text-xs text-gray-400">
-              {prompt.prepSeconds}s prep · {prompt.speakSeconds}s speaking
-            </span>
-            {uid && (
-              <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${
-                sessionUsed >= SESSION_LIMIT
-                  ? "bg-red-50 text-red-600 border-red-100"
-                  : "bg-gray-50 text-gray-500 border-gray-100"
-              }`}>
-                {SESSION_LIMIT - sessionUsed} sesi tersisa
-              </span>
-            )}
+    <main className="page-container">
+      <PageHeader
+        backHref="/speaking"
+        eyebrow="Speaking Practice"
+        title="Latihan speaking"
+        description="Gunakan waktu persiapan, rekam jawaban, lalu tunggu feedback AI berdasarkan rubrik TOEFL."
+        actions={
+          <div className="flex flex-wrap gap-2">
+            <Pill tone={typeTone}>{typeLabel}</Pill>
+            <Pill tone="neutral">{prompt.prepSeconds}s prep / {prompt.speakSeconds}s speaking</Pill>
+            {uid && <Pill tone={sessionsLeft === 0 ? "red" : "green"}>{sessionsLeft} sesi tersisa</Pill>}
           </div>
-        </div>
-      </div>
+        }
+      />
 
-      {/* Task prompt card */}
-      <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm">
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
-          Soal TOEFL Speaking
-        </p>
-        {prompt.context && (
-          <details className="mb-3">
-            <summary className="cursor-pointer text-xs text-brand-600 font-medium">
-              Baca konteks (Integrated)
-            </summary>
-            <div className="mt-2 p-3 rounded-lg bg-surface-2 text-xs text-gray-600 leading-relaxed whitespace-pre-line">
-              {prompt.context}
+      <section className="mt-6 grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
+        <Card>
+          <div className="mb-4 flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-brand-100 bg-brand-50 text-brand-600">
+              <FileText className="h-5 w-5" />
             </div>
-          </details>
-        )}
-        <p className="text-sm text-gray-800 leading-relaxed">{prompt.topic}</p>
-      </div>
-
-      {/* Recording UI */}
-      {(phase === "idle" || phase === "prep" || phase === "recording") && (
-        <div className="rounded-2xl bg-surface border border-subtle p-5 shadow-sm">
-          <AudioRecorder
-            prepSeconds={prompt.prepSeconds}
-            speakSeconds={prompt.speakSeconds}
-            phase={phase}
-            onPhaseChange={setPhase}
-            onTranscriptionChange={setTranscription}
-            onComplete={handleComplete}
-          />
-
-          {phase === "idle" && (
-            <div className="mt-4 flex items-start gap-2 p-3 rounded-xl bg-amber-50 border border-amber-100">
-              <svg className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-              </svg>
-              <p className="text-xs text-amber-700">
-                Butuh izin mikrofon browser. Pastikan kamu dalam kondisi bisa berbicara dengan jelas.
-              </p>
+            <div>
+              <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-muted">Soal TOEFL Speaking</p>
+              <p className="text-sm font-semibold text-secondary">Baca prompt sebelum mulai timer.</p>
             </div>
+          </div>
+
+          {prompt.context && (
+            <details className="mb-4 rounded-2xl border border-line bg-surface-2 p-4">
+              <summary className="cursor-pointer text-sm font-extrabold text-brand-700 premium-focus">
+                Baca konteks integrated
+              </summary>
+              <div className="mt-3 whitespace-pre-line text-sm leading-7 text-secondary">
+                {prompt.context}
+              </div>
+            </details>
           )}
-        </div>
-      )}
 
-      {/* Processing spinner */}
-      {phase === "processing" && !streamedText && (
-        <div className="rounded-2xl bg-surface border border-subtle p-8 shadow-sm flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-3 border-brand-600 border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm text-gray-500">AI sedang menilai jawabanmu…</p>
-        </div>
-      )}
+          <p className="text-base font-semibold leading-8 text-ink">{prompt.topic}</p>
+        </Card>
 
-      {/* Streaming result */}
+        {(phase === "idle" || phase === "prep" || phase === "recording") && (
+          <Card>
+            <AudioRecorder
+              prepSeconds={prompt.prepSeconds}
+              speakSeconds={prompt.speakSeconds}
+              phase={phase}
+              onPhaseChange={setPhase}
+              onTranscriptionChange={setTranscription}
+              onComplete={handleComplete}
+            />
+          </Card>
+        )}
+
+        {phase === "processing" && !streamedText && (
+          <Card className="flex min-h-[280px] flex-col items-center justify-center gap-4 text-center">
+            <Loader2 className="h-10 w-10 animate-spin text-brand-600" />
+            <div>
+              <p className="text-lg font-black text-ink">AI sedang menilai jawabanmu</p>
+              <p className="mt-1 text-sm text-secondary">Skor dan feedback akan muncul otomatis.</p>
+            </div>
+          </Card>
+        )}
+      </section>
+
       {(streamedText || (phase === "result" && !error)) && (
-        <ScoreCard
-          feedback={streamedText}
-          scores={scores}
-          streaming={streaming}
-        />
+        <section className="mt-6">
+          <ScoreCard feedback={streamedText} scores={scores} streaming={streaming} />
+        </section>
       )}
 
-      {/* Error state */}
       {error && (
-        <div className="rounded-2xl bg-red-50 border border-red-200 p-4">
-          <p className="text-sm text-red-700">{error}</p>
+        <div className="mt-6">
+          <StatusNote tone="red">{error}</StatusNote>
         </div>
       )}
 
-      {/* Transcription (collapsible) */}
       {transcription && phase === "result" && (
-        <details className="rounded-2xl bg-surface border border-subtle shadow-sm">
-          <summary className="p-4 cursor-pointer text-sm font-medium text-gray-500 hover:text-gray-700">
+        <details className="mt-6 rounded-3xl border border-line bg-white shadow-soft">
+          <summary className="flex cursor-pointer items-center gap-2 p-5 text-sm font-extrabold text-secondary hover:text-ink premium-focus">
+            <ListChecks className="h-4 w-4" />
             Lihat transkrip jawaban kamu
           </summary>
-          <p className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">{transcription}</p>
+          <p className="px-5 pb-5 text-sm leading-7 text-secondary">{transcription}</p>
         </details>
       )}
 
-      {/* Action buttons after result */}
       {phase === "result" && (
-        <div className="flex flex-col gap-3 pt-2">
-          <button
-            onClick={restart}
-            className="w-full py-4 rounded-2xl bg-brand-600 hover:bg-brand-700 active:scale-95 transition-all text-white font-semibold"
-          >
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          <Button onClick={restart} variant="brand">
+            <RefreshCw className="h-4 w-4" />
             Coba Lagi Soal Ini
-          </button>
-          <Link
-            href="/speaking"
-            className="block w-full py-3 rounded-2xl border border-subtle hover:bg-surface-2 active:scale-95 transition-all text-gray-700 font-medium text-center"
-          >
-            Pilih Soal Lain
-          </Link>
+          </Button>
+          <LinkButton href="/speaking" variant="secondary">Pilih Soal Lain</LinkButton>
         </div>
       )}
+
       {showUpgrade && (
         <EmailUpgradeSheet
           onDismiss={() => {

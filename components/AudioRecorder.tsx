@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { cn } from "@/lib/cn";
+import { Mic2, Square, Waves } from "lucide-react";
+import { Button, StatusNote } from "@/components/ui";
 import type { PracticePhase } from "@/types";
 
 interface Props {
@@ -30,7 +31,6 @@ export default function AudioRecorder({
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const finalTextRef = useRef("");
 
-  // Keep ref in sync for use inside recognition callbacks
   useEffect(() => { finalTextRef.current = finalText; }, [finalText]);
 
   useEffect(() => {
@@ -118,7 +118,6 @@ export default function AudioRecorder({
     onComplete(result);
   }, [stopRecognition, onComplete]);
 
-  // Cleanup on unmount
   useEffect(() => () => stopRecognition(), [stopRecognition]);
 
   const totalSeconds = phase === "prep" ? prepSeconds : speakSeconds;
@@ -126,34 +125,37 @@ export default function AudioRecorder({
 
   if (phase === "idle") {
     return (
-      <button
-        onClick={startPrep}
-        className="w-full py-4 rounded-2xl bg-brand-600 hover:bg-brand-700 active:scale-95 transition-all text-white text-lg font-semibold shadow-lg"
-      >
-        Mulai Latihan
-      </button>
+      <div className="flex flex-col gap-4">
+        <Button onClick={startPrep} variant="brand" className="w-full text-base">
+          <Mic2 className="h-5 w-5" />
+          Mulai Latihan
+        </Button>
+        <StatusNote tone="gold">
+          Browser akan meminta izin mikrofon. Pilih tempat yang tenang agar transkrip lebih akurat.
+        </StatusNote>
+      </div>
     );
   }
 
   if (phase === "prep") {
     return (
-      <div className="flex flex-col items-center gap-4">
-        <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Persiapan</p>
-        <div className="relative flex items-center justify-center w-28 h-28">
-          <svg className="absolute inset-0 -rotate-90" viewBox="0 0 112 112">
-            <circle cx="56" cy="56" r="50" fill="none" stroke="#dbeafe" strokeWidth="8" />
+      <div className="flex flex-col items-center gap-5 text-center">
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-brand-600">Persiapan</p>
+        <div className="relative flex h-32 w-32 items-center justify-center">
+          <svg className="absolute inset-0 -rotate-90" viewBox="0 0 128 128">
+            <circle cx="64" cy="64" r="56" fill="none" stroke="#D7E9FF" strokeWidth="10" />
             <circle
-              cx="56" cy="56" r="50" fill="none" stroke="#2563eb" strokeWidth="8"
-              strokeDasharray={`${2 * Math.PI * 50}`}
-              strokeDashoffset={`${2 * Math.PI * 50 * (1 - progress / 100)}`}
+              cx="64" cy="64" r="56" fill="none" stroke="#1B55D9" strokeWidth="10"
+              strokeDasharray={`${2 * Math.PI * 56}`}
+              strokeDashoffset={`${2 * Math.PI * 56 * (1 - progress / 100)}`}
               strokeLinecap="round"
               style={{ transition: "stroke-dashoffset 1s linear" }}
             />
           </svg>
-          <span className="text-4xl font-bold text-brand-700">{timeLeft}</span>
+          <span className="font-display text-6xl leading-none text-brand-700">{timeLeft}</span>
         </div>
-        <p className="text-gray-600 text-sm text-center">
-          Pikirkan jawaban kamu sebelum mulai berbicara
+        <p className="max-w-sm text-sm leading-relaxed text-secondary">
+          Susun poin utama sebelum mulai berbicara.
         </p>
       </div>
     );
@@ -162,44 +164,42 @@ export default function AudioRecorder({
   if (phase === "recording") {
     return (
       <div className="flex flex-col items-center gap-5">
-        <p className="text-sm font-medium text-red-500 uppercase tracking-wide flex items-center gap-1.5">
-          <span className="inline-block w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+        <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-red-600">
+          <span className="inline-block h-2.5 w-2.5 animate-pulse rounded-full bg-red-500" />
           Sedang Merekam
         </p>
 
-        {/* Timer ring */}
-        <div className="relative flex items-center justify-center w-28 h-28">
-          <svg className="absolute inset-0 -rotate-90" viewBox="0 0 112 112">
-            <circle cx="56" cy="56" r="50" fill="none" stroke="#fee2e2" strokeWidth="8" />
+        <div className="relative flex h-32 w-32 items-center justify-center">
+          <svg className="absolute inset-0 -rotate-90" viewBox="0 0 128 128">
+            <circle cx="64" cy="64" r="56" fill="none" stroke="#FEE2E2" strokeWidth="10" />
             <circle
-              cx="56" cy="56" r="50" fill="none" stroke="#ef4444" strokeWidth="8"
-              strokeDasharray={`${2 * Math.PI * 50}`}
-              strokeDashoffset={`${2 * Math.PI * 50 * (progress / 100)}`}
+              cx="64" cy="64" r="56" fill="none" stroke="#DC2626" strokeWidth="10"
+              strokeDasharray={`${2 * Math.PI * 56}`}
+              strokeDashoffset={`${2 * Math.PI * 56 * (progress / 100)}`}
               strokeLinecap="round"
               style={{ transition: "stroke-dashoffset 1s linear" }}
             />
           </svg>
-          <span className="text-4xl font-bold text-red-600">{timeLeft}</span>
+          <span className="font-display text-6xl leading-none text-red-600">{timeLeft}</span>
         </div>
 
-        {/* Live transcription */}
-        <div className="w-full min-h-[80px] rounded-xl bg-surface-2 border border-subtle p-3 text-sm text-gray-700">
+        <div className="w-full rounded-3xl border border-line bg-surface-2 p-4 text-sm leading-7 text-ink">
           {finalText || interimText ? (
             <>
               <span>{finalText}</span>
-              <span className="text-gray-400 italic">{interimText}</span>
+              <span className="text-muted italic">{interimText}</span>
             </>
           ) : (
-            <span className="text-gray-400 italic">
-              {speechSupported ? "Mulai berbicara..." : "Ketik jawaban di bawah (Web Speech API tidak didukung browser ini)"}
+            <span className="flex items-center gap-2 text-muted italic">
+              <Waves className="h-4 w-4" />
+              {speechSupported ? "Mulai berbicara..." : "Ketik jawaban di bawah. Web Speech API tidak didukung browser ini."}
             </span>
           )}
         </div>
 
-        {/* Manual text input fallback for unsupported browsers */}
         {!speechSupported && (
           <textarea
-            className="w-full rounded-xl border border-gray-300 p-3 text-sm resize-none"
+            className="w-full resize-none rounded-2xl border border-line bg-white p-4 text-sm leading-7 text-ink shadow-soft premium-focus"
             rows={4}
             placeholder="Ketik jawaban TOEFL Speaking kamu di sini..."
             onChange={(e) => {
@@ -210,12 +210,10 @@ export default function AudioRecorder({
           />
         )}
 
-        <button
-          onClick={finishRecording}
-          className="w-full py-3 rounded-2xl bg-gray-800 hover:bg-gray-900 text-white font-semibold transition-colors"
-        >
+        <Button onClick={finishRecording} variant="danger" className="w-full">
+          <Square className="h-4 w-4" />
           Selesai Lebih Awal
-        </button>
+        </Button>
       </div>
     );
   }

@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { onAuthStateChanged } from "firebase/auth";
+import { CheckCircle2, Cloud, LockKeyhole, Mail, ShieldCheck, UserRound } from "lucide-react";
 import { auth, ensureAnonymousAuth, signInWithEmail } from "@/lib/firebase";
 import EmailUpgradeSheet from "@/components/EmailUpgradeSheet";
 import type { User } from "firebase/auth";
+import { Button, Card, LinkButton, PageHeader, Pill, StatusNote } from "@/components/ui";
 
 type PageState = "loading" | "ready";
 
@@ -14,7 +15,6 @@ export default function ProfilePage() {
   const [pageState, setPageState] = useState<PageState>("loading");
   const [showUpgrade, setShowUpgrade] = useState(false);
 
-  // Sign-in form state (for returning registered users on new device)
   const [showSignIn, setShowSignIn] = useState(false);
   const [siEmail, setSiEmail] = useState("");
   const [siPassword, setSiPassword] = useState("");
@@ -28,7 +28,6 @@ export default function ProfilePage() {
       setPageState("ready");
     });
 
-    // Listen for auth state changes (e.g. after upgrade)
     if (!auth) return;
     const unsub = onAuthStateChanged(auth, (u) => setUser(u));
     return unsub;
@@ -50,21 +49,11 @@ export default function ProfilePage() {
 
   if (pageState === "loading") {
     return (
-      <main className="flex flex-col gap-5 pt-8">
-        <div className="h-7 w-24 bg-gray-200 rounded-lg animate-pulse" />
-        <div className="rounded-2xl bg-surface border border-subtle p-5 animate-pulse">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-14 h-14 rounded-2xl bg-gray-200" />
-            <div className="flex flex-col gap-2">
-              <div className="h-4 w-36 bg-gray-200 rounded" />
-              <div className="h-5 w-20 bg-gray-100 rounded-full" />
-            </div>
-          </div>
-          <div className="h-3 w-full bg-gray-100 rounded mb-2" />
-          <div className="h-3 w-4/5 bg-gray-100 rounded mb-4" />
-          <div className="h-10 w-full bg-gray-200 rounded-xl" />
+      <main className="page-container">
+        <div className="grid gap-4 lg:grid-cols-[1fr_0.8fr]">
+          <div className="h-72 animate-pulse rounded-3xl border border-line bg-white shadow-soft" />
+          <div className="h-72 animate-pulse rounded-3xl border border-line bg-white shadow-soft" />
         </div>
-        <div className="rounded-2xl bg-surface border border-subtle h-28 animate-pulse" />
       </main>
     );
   }
@@ -72,137 +61,129 @@ export default function ProfilePage() {
   const isAnonymous = user?.isAnonymous ?? true;
 
   return (
-    <main className="flex flex-col gap-5 pt-8">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <Link href="/progress" className="text-gray-400 hover:text-gray-600 transition-colors">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </Link>
-        <h1 className="font-display text-2xl leading-tight text-ink">Profil</h1>
-      </div>
+    <main className="page-container">
+      <PageHeader
+        backHref="/progress"
+        eyebrow="Account"
+        title="Profil"
+        description="Kelola status akun dan opsi sinkronisasi progres latihan."
+        actions={<Pill tone={isAnonymous ? "gold" : "green"}>{isAnonymous ? "Belum terdaftar" : "Terdaftar"}</Pill>}
+      />
 
-      {/* Auth status card */}
-      <div className="rounded-2xl bg-surface border border-subtle p-5 shadow-sm">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-14 h-14 rounded-2xl bg-brand-50 border border-brand-100 flex items-center justify-center">
-            <svg className="w-7 h-7 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
+      <section className="mt-6 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
+        <Card>
+          <div className="flex items-start gap-4">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-3xl border border-brand-100 bg-brand-50 text-brand-600">
+              <UserRound className="h-8 w-8" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-muted">Status Akun</p>
+              <h2 className="mt-2 truncate text-2xl font-black text-ink">
+                {isAnonymous ? "Pengguna Anonim" : user?.email}
+              </h2>
+              <p className="mt-2 text-sm leading-7 text-secondary">
+                {isAnonymous
+                  ? "Progresmu tersimpan di perangkat ini. Daftarkan email agar progres tetap aman saat ganti perangkat."
+                  : "Progresmu tersimpan di cloud dan bisa diakses dari perangkat mana pun dengan login email yang sama."}
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="font-semibold text-gray-900">
-              {isAnonymous ? "Pengguna Anonim" : user?.email}
-            </p>
-            <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${
-              isAnonymous
-                ? "bg-amber-50 text-amber-700 border-amber-100"
-                : "bg-green-50 text-green-700 border-green-100"
-            }`}>
-              {isAnonymous ? "Belum terdaftar" : "Terdaftar"}
-            </span>
-          </div>
-        </div>
 
-        {isAnonymous ? (
-          <div className="flex flex-col gap-3">
-            <p className="text-sm text-gray-500">
-              Progresmu tersimpan di perangkat ini saja. Daftarkan email agar tidak hilang saat ganti perangkat.
-            </p>
-            <button
-              onClick={() => setShowUpgrade(true)}
-              className="w-full py-3 rounded-xl bg-ink hover:bg-ink/90 text-white text-sm font-semibold transition-colors"
-            >
+          {isAnonymous ? (
+            <Button onClick={() => setShowUpgrade(true)} variant="primary" className="mt-6 w-full sm:w-auto">
+              <Cloud className="h-4 w-4" />
               Simpan Progres dengan Email
-            </button>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-2">
-            {siSuccess && (
-              <div className="p-3 rounded-xl bg-green-50 border border-green-100">
-                <p className="text-sm text-green-700 font-medium">Berhasil masuk! Progresmu terhubung.</p>
+            </Button>
+          ) : (
+            <StatusNote tone="green" className="mt-6">
+              <CheckCircle2 className="mr-2 inline h-4 w-4" />
+              Berhasil terhubung. Progresmu sudah tersimpan di cloud.
+            </StatusNote>
+          )}
+        </Card>
+
+        {isAnonymous && (
+          <Card>
+            <div className="flex items-start gap-4">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-line bg-surface-2 text-ink">
+                <LockKeyhole className="h-6 w-6" />
               </div>
+              <div>
+                <p className="text-lg font-black text-ink">Sudah punya akun?</p>
+                <p className="mt-1 text-sm leading-7 text-secondary">Masuk untuk menyambungkan riwayat dari perangkat lain.</p>
+              </div>
+            </div>
+
+            {!showSignIn ? (
+              <Button onClick={() => setShowSignIn(true)} variant="secondary" className="mt-5 w-full">
+                <Mail className="h-4 w-4" />
+                Masuk dengan Email
+              </Button>
+            ) : (
+              <form onSubmit={handleSignIn} className="mt-5 flex flex-col gap-3">
+                <input
+                  type="email"
+                  required
+                  value={siEmail}
+                  onChange={(e) => setSiEmail(e.target.value)}
+                  placeholder="Email"
+                  className="min-h-[48px] w-full rounded-2xl border border-line bg-white px-4 text-sm font-semibold text-ink shadow-soft premium-focus"
+                />
+                <input
+                  type="password"
+                  required
+                  value={siPassword}
+                  onChange={(e) => setSiPassword(e.target.value)}
+                  placeholder="Password"
+                  className="min-h-[48px] w-full rounded-2xl border border-line bg-white px-4 text-sm font-semibold text-ink shadow-soft premium-focus"
+                />
+                {siError && <StatusNote tone="red">{siError}</StatusNote>}
+                <Button type="submit" disabled={siLoading} variant="primary" className="w-full">
+                  {siLoading ? "Masuk..." : "Masuk"}
+                </Button>
+                <button type="button" onClick={() => setShowSignIn(false)} className="min-h-[44px] text-sm font-bold text-muted hover:text-ink premium-focus">
+                  Batal
+                </button>
+              </form>
             )}
-            <p className="text-sm text-gray-500">
-              Progresmu tersimpan di cloud dan bisa diakses dari perangkat mana pun dengan login email yang sama.
-            </p>
-          </div>
+          </Card>
         )}
+
+        <Card className="lg:col-span-2">
+          <div className="mb-5 flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-teal-100 bg-teal-50 text-teal-600">
+              <ShieldCheck className="h-6 w-6" />
+            </div>
+            <div>
+              <p className="text-lg font-black text-ink">Tentang EnglishHub SMA</p>
+              <p className="text-sm text-secondary">Ringkasan modul yang tersedia di perangkat ini.</p>
+            </div>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {[
+              ["Speaking", "3 sesi/hari - 12 soal"],
+              ["Writing", "2 sesi/hari - 7 soal"],
+              ["Vocabulary", "50 kata - SRS otomatis"],
+              ["Scoring", "Claude AI - rubrik TOEFL"],
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-2xl border border-line bg-surface-2 p-4">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-muted">{label}</p>
+                <p className="mt-2 text-sm font-bold text-ink">{value}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </section>
+
+      <div className="mt-6">
+        <LinkButton href="/" variant="ghost">Kembali ke Beranda</LinkButton>
       </div>
 
-      {/* Sign in on new device (for registered users) */}
-      {isAnonymous && (
-        <div className="rounded-2xl bg-surface border border-subtle p-5 shadow-sm">
-          <p className="text-sm font-semibold text-gray-800 mb-1">Sudah punya akun?</p>
-          <p className="text-xs text-gray-500 mb-4">
-            Jika kamu pernah mendaftar sebelumnya, masuk di sini untuk menyambungkan riwayat.
-          </p>
-          {!showSignIn ? (
-            <button
-              onClick={() => setShowSignIn(true)}
-              className="w-full py-3 rounded-xl border border-subtle hover:bg-surface-2 text-secondary text-sm font-semibold transition-colors"
-            >
-              Masuk dengan Email
-            </button>
-          ) : (
-            <form onSubmit={handleSignIn} className="flex flex-col gap-3">
-              <input
-                type="email"
-                required
-                value={siEmail}
-                onChange={(e) => setSiEmail(e.target.value)}
-                placeholder="Email"
-                className="w-full px-4 py-3 rounded-xl border border-subtle text-sm focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition"
-              />
-              <input
-                type="password"
-                required
-                value={siPassword}
-                onChange={(e) => setSiPassword(e.target.value)}
-                placeholder="Password"
-                className="w-full px-4 py-3 rounded-xl border border-subtle text-sm focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition"
-              />
-              {siError && (
-                <p className="text-xs text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2">{siError}</p>
-              )}
-              <button
-                type="submit"
-                disabled={siLoading}
-                className="w-full py-3 rounded-xl bg-ink hover:bg-ink/90 disabled:opacity-60 text-white text-sm font-semibold transition-colors"
-              >
-                {siLoading ? "Masuk…" : "Masuk"}
-              </button>
-              <button type="button" onClick={() => setShowSignIn(false)} className="text-sm text-gray-400 hover:text-gray-600 text-center">
-                Batal
-              </button>
-            </form>
-          )}
+      {siSuccess && (
+        <div className="mt-4">
+          <StatusNote tone="green">Berhasil masuk. Progresmu terhubung.</StatusNote>
         </div>
       )}
-
-      {/* App info */}
-      <div className="rounded-2xl bg-surface border border-subtle p-5 shadow-sm flex flex-col gap-3">
-        <p className="text-sm font-semibold text-gray-800">Tentang EnglishHub SMA</p>
-        <div className="flex flex-col gap-2 text-xs text-gray-500">
-          <div className="flex justify-between">
-            <span>Speaking</span><span className="text-gray-700">3 sesi/hari · 12 soal</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Writing</span><span className="text-gray-700">2 sesi/hari · 7 soal</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Vocabulary</span><span className="text-gray-700">50 kata · SRS otomatis</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Scoring</span><span className="text-gray-700">Claude AI · rubrik ETS TOEFL</span>
-          </div>
-        </div>
-      </div>
-
-      <Link href="/" className="text-center text-xs text-gray-400 hover:text-gray-600 py-2 transition-colors">
-        ← Kembali ke Beranda
-      </Link>
 
       {showUpgrade && (
         <EmailUpgradeSheet

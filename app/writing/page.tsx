@@ -2,19 +2,21 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ArrowRight, Clock3, PenLine, SlidersHorizontal } from "lucide-react";
+import { IconTile, PageHeader, Pill, SegmentedControl } from "@/components/ui";
 import { WRITING_PROMPTS } from "@/lib/writing-prompts";
 
 type Filter = "all" | "independent" | "integrated";
 
 const TYPE_LABELS = {
-  independent: { label: "Independent", color: "bg-brand-50 text-brand-700 border-brand-100" },
-  integrated:  { label: "Integrated",  color: "bg-purple-50 text-purple-700 border-purple-100" },
+  independent: { label: "Independent", tone: "brand" as const },
+  integrated: { label: "Integrated", tone: "purple" as const },
 };
 
 const FILTER_TABS: { key: Filter; label: string }[] = [
-  { key: "all",         label: "Semua" },
+  { key: "all", label: "Semua" },
   { key: "independent", label: "Independent" },
-  { key: "integrated",  label: "Integrated" },
+  { key: "integrated", label: "Integrated" },
 ];
 
 export default function WritingPage() {
@@ -25,68 +27,52 @@ export default function WritingPage() {
     : WRITING_PROMPTS.filter((p) => p.type === filter);
 
   return (
-    <main className="flex flex-col gap-6 pt-8">
-      <div className="flex items-center gap-3">
-        <Link href="/" className="text-gray-400 hover:text-gray-600 transition-colors">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </Link>
-        <div>
-          <h1 className="font-display text-2xl leading-tight text-ink">Pilih Soal Writing</h1>
-          <p className="text-xs text-muted">Gratis 2 sesi per hari</p>
-        </div>
+    <main className="page-container">
+      <PageHeader
+        backHref="/"
+        eyebrow="Writing Lab"
+        title="Pilih soal writing"
+        description="Latihan esai dengan timer, target kata, dan feedback untuk Content, Organization, dan Language Use."
+        actions={<Pill tone="brand">Gratis 2 sesi per hari</Pill>}
+      />
+
+      <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <SegmentedControl items={FILTER_TABS} value={filter} onChange={setFilter} />
+        <p className="flex items-center gap-2 text-sm font-semibold text-muted">
+          <SlidersHorizontal className="h-4 w-4" />
+          {visible.length} soal tersedia
+        </p>
       </div>
 
-      <div className="flex gap-2">
-        {FILTER_TABS.map(({ key, label }) => (
-          <button
-            key={key}
-            onClick={() => setFilter(key)}
-            className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
-              filter === key
-                ? "bg-brand-600 text-white border-brand-600"
-                : "border-subtle text-secondary bg-surface hover:border-brand-200 hover:text-brand-600"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-
-      <div className="flex flex-col gap-3">
+      <section className="mt-6 grid gap-4 lg:grid-cols-2">
         {visible.map((prompt) => {
-          const { label, color } = TYPE_LABELS[prompt.type];
+          const { label, tone } = TYPE_LABELS[prompt.type];
           return (
             <Link
               key={prompt.id}
               href={`/writing/${prompt.id}`}
-              className="rounded-2xl bg-surface border border-subtle p-5 shadow-sm hover:shadow-md hover:border-brand-200 active:scale-[0.99] transition-all group"
+              className="group rounded-3xl border border-line bg-white p-5 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-premium premium-focus"
             >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex flex-col gap-2 flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${color}`}>
-                      {label}
-                    </span>
-                    <span className="text-xs text-muted">
-                      {prompt.minuteLimit} menit · target {prompt.targetWords}+ kata
-                    </span>
+              <div className="flex items-start gap-4">
+                <IconTile tone={tone === "brand" ? "brand" : "purple"}>
+                  <PenLine className="h-5 w-5" />
+                </IconTile>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Pill tone={tone}>{label}</Pill>
+                    <Pill tone="neutral">
+                      <Clock3 className="h-3.5 w-3.5" />
+                      {prompt.minuteLimit} menit / {prompt.targetWords}+ kata
+                    </Pill>
                   </div>
-                  <p className="text-sm text-secondary leading-relaxed line-clamp-3">
-                    {prompt.topic}
-                  </p>
+                  <p className="mt-3 line-clamp-4 text-sm leading-7 text-ink">{prompt.topic}</p>
                 </div>
-                <div className="w-8 h-8 rounded-full bg-surface-2 border border-subtle flex items-center justify-center shrink-0 group-hover:bg-brand-50 group-hover:border-brand-100 transition-colors">
-                  <svg className="w-4 h-4 text-muted group-hover:text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
+                <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-muted transition-transform group-hover:translate-x-1 group-hover:text-brand-600" />
               </div>
             </Link>
           );
         })}
-      </div>
+      </section>
     </main>
   );
 }

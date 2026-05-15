@@ -2,17 +2,19 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import { CheckCircle2, Eye, RotateCcw } from "lucide-react";
+import { Button, IconTile, LinkButton, PageHeader, Pill } from "@/components/ui";
 import { VOCAB_WORDS, VOCAB_IDS } from "@/lib/vocab-words";
 import { loadCards, saveCards, getDueCards, scheduleCard, getOrCreateCard } from "@/lib/srs";
 import type { VocabWord, SRSRating } from "@/types";
 
 type ReviewPhase = "front" | "back" | "done";
 
-const RATING_LABELS: { rating: SRSRating; label: string; color: string }[] = [
-  { rating: 1, label: "Lupa",  color: "bg-red-100 text-red-700 border-red-200 hover:bg-red-200" },
-  { rating: 2, label: "Susah", color: "bg-orange-100 text-orange-700 border-orange-200 hover:bg-orange-200" },
-  { rating: 3, label: "Ingat", color: "bg-yellow-100 text-yellow-700 border-yellow-200 hover:bg-yellow-200" },
-  { rating: 4, label: "Mudah", color: "bg-green-100 text-green-700 border-green-200 hover:bg-green-200" },
+const RATING_LABELS: { rating: SRSRating; label: string; className: string }[] = [
+  { rating: 1, label: "Lupa", className: "border-red-100 bg-red-50 text-red-700 hover:bg-red-100" },
+  { rating: 2, label: "Susah", className: "border-orange-100 bg-orange-50 text-orange-700 hover:bg-orange-100" },
+  { rating: 3, label: "Ingat", className: "border-yellow-100 bg-yellow-50 text-yellow-700 hover:bg-yellow-100" },
+  { rating: 4, label: "Mudah", className: "border-green-100 bg-green-50 text-green-700 hover:bg-green-100" },
 ];
 
 export default function VocabReviewPage() {
@@ -25,7 +27,7 @@ export default function VocabReviewPage() {
   useEffect(() => {
     const cards = loadCards();
     const due = getDueCards(cards, VOCAB_IDS);
-    setQueue(due.sort(() => Math.random() - 0.5)); // shuffle
+    setQueue(due.sort(() => Math.random() - 0.5));
     setLoaded(true);
   }, []);
 
@@ -51,32 +53,27 @@ export default function VocabReviewPage() {
 
   if (!loaded) {
     return (
-    <main className="flex flex-col gap-6 pt-8">
-        <div className="h-4 w-32 bg-gray-200 rounded animate-pulse" />
+      <main className="page-container">
+        <div className="h-28 animate-pulse rounded-3xl border border-line bg-white shadow-soft" />
       </main>
     );
   }
 
   if (queue.length === 0 || phase === "done") {
     return (
-      <main className="flex flex-col gap-6 pt-8 items-center text-center">
-        <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
-          <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
+      <main className="page-container">
+        <div className="mx-auto flex max-w-xl flex-col items-center gap-5 rounded-[2rem] border border-line bg-white p-8 text-center shadow-premium">
+          <IconTile tone="teal" className="h-16 w-16">
+            <CheckCircle2 className="h-8 w-8" />
+          </IconTile>
+          <div>
+            <h1 className="text-3xl font-black tracking-tight text-ink">Review selesai</h1>
+            <p className="mt-2 text-sm leading-7 text-secondary">
+              {reviewedCount > 0 ? `Kamu mereview ${reviewedCount} kata.` : "Tidak ada kata yang harus direview sekarang."}
+            </p>
+          </div>
+          <LinkButton href="/vocab" variant="primary">Kembali ke Vocab</LinkButton>
         </div>
-        <div>
-          <p className="font-display text-2xl text-ink">Review Selesai!</p>
-          <p className="text-sm text-gray-500 mt-1">
-            {reviewedCount > 0 ? `Kamu mereview ${reviewedCount} kata.` : "Tidak ada kata yang harus direview sekarang."}
-          </p>
-        </div>
-        <Link
-          href="/vocab"
-          className="px-8 py-3 rounded-2xl bg-ink hover:bg-ink/90 text-white font-semibold transition-colors"
-        >
-          Kembali ke Vocab
-        </Link>
       </main>
     );
   }
@@ -84,59 +81,46 @@ export default function VocabReviewPage() {
   const progress = Math.round((currentIdx / queue.length) * 100);
 
   return (
-    <main className="flex flex-col gap-5 pt-8">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <Link href="/vocab" className="text-gray-400 hover:text-gray-600 transition-colors">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </Link>
-        <div className="flex-1">
-          <div className="flex items-center justify-between mb-1">
-            <p className="text-xs text-gray-400">{currentIdx + 1} / {queue.length}</p>
-            <p className="text-xs text-gray-400">{reviewedCount} direview</p>
-          </div>
-          <div className="h-1.5 rounded-full bg-gray-100 overflow-hidden">
-            <div className="h-full bg-brand-500 rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
-          </div>
-        </div>
+    <main className="page-container">
+      <PageHeader
+        backHref="/vocab"
+        eyebrow="Review Session"
+        title="Flashcard vocabulary"
+        description="Buka arti, nilai ingatanmu, lalu biarkan jadwal review berikutnya disesuaikan otomatis."
+        actions={<Pill tone="neutral">{currentIdx + 1} / {queue.length}</Pill>}
+      />
+
+      <div className="mt-6 rounded-full bg-white p-1 shadow-soft">
+        <div className="h-2 rounded-full bg-brand-600 transition-all duration-300" style={{ width: `${progress}%` }} />
       </div>
 
-      {/* Flashcard */}
       {currentWord && (
-        <div className="flex flex-col gap-4">
-          {/* Front */}
-          <div className="rounded-3xl bg-surface border border-subtle shadow-sm p-8 min-h-[200px] flex flex-col items-center justify-center gap-2">
-            <p className="text-xs text-gray-400 uppercase tracking-widest">
-              {currentWord.partOfSpeech}
-            </p>
-            <p className="font-display text-5xl text-ink text-center">{currentWord.word}</p>
+        <section className="mx-auto mt-6 max-w-3xl">
+          <div className="rounded-[2rem] border border-line bg-white p-8 text-center shadow-premium sm:p-12">
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-muted">{currentWord.partOfSpeech}</p>
+            <p className="mt-4 font-display text-6xl leading-none text-ink sm:text-7xl">{currentWord.word}</p>
           </div>
 
-          {/* Reveal button / Back */}
           {phase === "front" ? (
-            <button
-              onClick={() => setPhase("back")}
-              className="w-full py-4 rounded-2xl border-2 border-brand-200 text-brand-600 font-semibold text-sm hover:bg-brand-50 transition-colors"
-            >
+            <Button onClick={() => setPhase("back")} variant="secondary" className="mt-4 w-full text-base">
+              <Eye className="h-5 w-5" />
               Lihat Arti
-            </button>
+            </Button>
           ) : (
-            <div className="flex flex-col gap-3">
-              <div className="rounded-2xl bg-brand-50 border border-brand-100 p-4">
-                <p className="text-sm font-semibold text-brand-800 mb-1">{currentWord.definition}</p>
-                <p className="text-xs text-brand-600 italic">"{currentWord.example}"</p>
+            <div className="mt-4 flex flex-col gap-4">
+              <div className="rounded-3xl border border-brand-100 bg-brand-50 p-5">
+                <p className="text-base font-extrabold text-brand-900">{currentWord.definition}</p>
+                <p className="mt-3 text-sm italic leading-7 text-brand-700">"{currentWord.example}"</p>
               </div>
 
-              <p className="text-xs text-center text-gray-400 font-medium">Seberapa ingat kamu?</p>
+              <p className="text-center text-xs font-black uppercase tracking-[0.18em] text-muted">Seberapa ingat kamu?</p>
 
-              <div className="grid grid-cols-4 gap-2">
-                {RATING_LABELS.map(({ rating, label, color }) => (
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                {RATING_LABELS.map(({ rating, label, className }) => (
                   <button
                     key={rating}
                     onClick={() => handleRate(rating)}
-                    className={`py-3 rounded-xl border text-sm font-semibold transition-colors ${color}`}
+                    className={`min-h-[48px] rounded-2xl border px-3 text-sm font-extrabold transition-colors premium-focus ${className}`}
                   >
                     {label}
                   </button>
@@ -144,7 +128,12 @@ export default function VocabReviewPage() {
               </div>
             </div>
           )}
-        </div>
+
+          <Link href="/vocab" className="mt-5 flex items-center justify-center gap-2 text-sm font-bold text-muted hover:text-ink premium-focus">
+            <RotateCcw className="h-4 w-4" />
+            Keluar dari review
+          </Link>
+        </section>
       )}
     </main>
   );
