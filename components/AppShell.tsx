@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BookOpen, Home, LineChart, Mic2, PenLine, UserRound } from "lucide-react";
@@ -21,9 +22,13 @@ function isActive(pathname: string, href: string) {
 function BrandMark() {
   return (
     <Link href="/" className="flex min-h-[44px] items-center gap-3 rounded-2xl premium-focus">
-      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-ink text-sm font-black text-white shadow-soft">
-        EH
-      </div>
+      <Image
+        src="/englishhub.png"
+        alt="EnglishHub"
+        width={44}
+        height={44}
+        className="h-11 w-11 rounded-2xl object-cover shadow-soft"
+      />
       <div className="leading-tight">
         <p className="text-sm font-extrabold tracking-tight text-ink">EnglishHub</p>
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">AI TOEFL Studio</p>

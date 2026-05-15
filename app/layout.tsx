@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: "EnglishHub - Latihan TOEFL dengan AI",
   description:
     "Latihan TOEFL Speaking dengan AI. Rekam jawaban kamu, dapatkan skor dan feedback instan sesuai rubrik ETS TOEFL.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export const viewport: Viewport = {
