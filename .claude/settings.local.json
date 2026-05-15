@@ -11,7 +11,9 @@
       "Bash(rtk npm *)",
       "Bash(curl -s http://localhost:3000/api/debug)",
       "Bash(netstat -tlnp)",
-      "Bash(rtk grep *)"
+      "Bash(rtk grep *)",
+      "Skill(design-review)",
+      "Skill(design-review:*)"
     ]
   }
 }
