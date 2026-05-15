@@ -140,7 +140,7 @@ export default function WritingPracticePage({ params }: PageProps) {
           promptId: prompt.id,
           promptTopic: prompt.topic.slice(0, 120),
           type: "writing",
-          delivery: 0,
+          delivery: finalScores.organization,
           language_use: finalScores.language_use,
           topic_development: finalScores.content,
           total: finalScores.content + finalScores.organization + finalScores.language_use,
