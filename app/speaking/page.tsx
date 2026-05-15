@@ -1,12 +1,29 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { SPEAKING_PROMPTS } from "@/lib/prompts";
+
+type Filter = "all" | "independent" | "integrated";
 
 const TYPE_LABELS = {
   independent: { label: "Independent", color: "bg-brand-50 text-brand-700 border-brand-100" },
   integrated:  { label: "Integrated",  color: "bg-purple-50 text-purple-700 border-purple-100" },
 };
 
+const FILTER_TABS: { key: Filter; label: string }[] = [
+  { key: "all",         label: "Semua" },
+  { key: "independent", label: "Independent" },
+  { key: "integrated",  label: "Integrated" },
+];
+
 export default function SpeakingPage() {
+  const [filter, setFilter] = useState<Filter>("all");
+
+  const visible = filter === "all"
+    ? SPEAKING_PROMPTS
+    : SPEAKING_PROMPTS.filter((p) => p.type === filter);
+
   return (
     <main className="flex flex-col gap-6 pt-6">
       {/* Header */}
@@ -22,21 +39,26 @@ export default function SpeakingPage() {
         </div>
       </div>
 
-      {/* Filter tabs — visual only for now */}
+      {/* Filter tabs */}
       <div className="flex gap-2">
-        {["Semua", "Independent", "Integrated"].map((tab) => (
+        {FILTER_TABS.map(({ key, label }) => (
           <button
-            key={tab}
-            className="px-3 py-1.5 rounded-full text-xs font-medium border border-gray-200 text-gray-600 bg-white first:bg-brand-600 first:text-white first:border-brand-600"
+            key={key}
+            onClick={() => setFilter(key)}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+              filter === key
+                ? "bg-brand-600 text-white border-brand-600"
+                : "border-gray-200 text-gray-600 bg-white hover:border-brand-200 hover:text-brand-600"
+            }`}
           >
-            {tab}
+            {label}
           </button>
         ))}
       </div>
 
       {/* Task list */}
       <div className="flex flex-col gap-3">
-        {SPEAKING_PROMPTS.map((prompt, i) => {
+        {visible.map((prompt) => {
           const { label, color } = TYPE_LABELS[prompt.type];
           return (
             <Link

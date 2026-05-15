@@ -59,6 +59,12 @@ export default function Home() {
           >
             Mulai Latihan Speaking
           </Link>
+          <Link
+            href="/progress"
+            className="block w-full py-3 rounded-2xl border border-gray-200 hover:bg-gray-50 transition-colors text-gray-600 text-center text-sm font-medium"
+          >
+            Lihat Riwayat Latihan
+          </Link>
           <p className="text-center text-xs text-gray-400">
             Gratis · 3 sesi/hari · Tanpa login
           </p>

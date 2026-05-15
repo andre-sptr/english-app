@@ -1,12 +1,14 @@
 "use client";
 
-import { use, useState, useCallback } from "react";
+import { use, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { getPromptById } from "@/lib/prompts";
 import AudioRecorder from "@/components/AudioRecorder";
 import ScoreCard from "@/components/ScoreCard";
 import type { PracticePhase, RubricScores } from "@/types";
 import { notFound } from "next/navigation";
+import { ensureAnonymousAuth, getSessionCount, checkAndIncrementSession, saveSession } from "@/lib/firebase";
+import EmailUpgradeSheet from "@/components/EmailUpgradeSheet";
 
 interface PageProps {
   params: Promise<{ taskId: string }>;
@@ -23,6 +25,22 @@ export default function PracticePage({ params }: PageProps) {
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [uid, setUid] = useState<string | null>(null);
+  const [isAnonymous, setIsAnonymous] = useState(true);
+  const [sessionUsed, setSessionUsed] = useState(0);
+  const [showUpgrade, setShowUpgrade] = useState(false);
+  const SESSION_LIMIT = 3;
+
+  useEffect(() => {
+    ensureAnonymousAuth().then(async (user) => {
+      if (!user) return;
+      setUid(user.uid);
+      setIsAnonymous(user.isAnonymous);
+      const { used } = await getSessionCount(user.uid, "speaking");
+      setSessionUsed(used);
+    });
+  }, []);
+
   if (!prompt) notFound();
 
   const handleComplete = useCallback(async (text: string) => {
@@ -34,6 +52,18 @@ export default function PracticePage({ params }: PageProps) {
     setStreaming(true);
 
     try {
+      // Gate: check + increment session counter before scoring
+      if (uid) {
+        const { allowed, used } = await checkAndIncrementSession(uid, "speaking");
+        setSessionUsed(used);
+        if (!allowed) {
+          setError("Kamu sudah mencapai batas 3 sesi speaking hari ini. Kembali lagi besok!");
+          setPhase("result");
+          setStreaming(false);
+          return;
+        }
+      }
+
       const response = await fetch("/api/score", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -46,6 +76,8 @@ export default function PracticePage({ params }: PageProps) {
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let full = "";
+      let finalScores: RubricScores | null = null;
+      let feedbackText = "";
 
       while (true) {
         const { done, value } = await reader.read();
@@ -57,13 +89,14 @@ export default function PracticePage({ params }: PageProps) {
         if (markerIdx === -1) {
           setStreamedText(full);
         } else {
-          setStreamedText(full.slice(0, markerIdx).trim());
+          feedbackText = full.slice(0, markerIdx).trim();
+          setStreamedText(feedbackText);
           const jsonPart = full.slice(markerIdx + "[SCORES]".length).trim();
           const jsonMatch = jsonPart.match(/\{[^}]+\}/);
           if (jsonMatch) {
             try {
-              const parsed = JSON.parse(jsonMatch[0]) as RubricScores;
-              setScores(parsed);
+              finalScores = JSON.parse(jsonMatch[0]) as RubricScores;
+              setScores(finalScores);
             } catch {
               // JSON not complete yet — keep waiting
             }
@@ -72,13 +105,34 @@ export default function PracticePage({ params }: PageProps) {
       }
 
       setPhase("result");
+
+      // Soft email upgrade prompt after 2nd session
+      if (isAnonymous && sessionUsed >= 2) {
+        const dismissed = sessionStorage.getItem("upgrade-dismissed");
+        if (!dismissed) setShowUpgrade(true);
+      }
+
+      // Save to Firestore (fire-and-forget)
+      if (uid && finalScores) {
+        saveSession(uid, {
+          promptId: prompt.id,
+          promptTopic: prompt.topic.slice(0, 120),
+          type: "speaking",
+          delivery: finalScores.delivery,
+          language_use: finalScores.language_use,
+          topic_development: finalScores.topic_development,
+          total: finalScores.delivery + finalScores.language_use + finalScores.topic_development,
+          feedback: feedbackText,
+          transcription: text,
+        });
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Terjadi kesalahan.");
       setPhase("result");
     } finally {
       setStreaming(false);
     }
-  }, [prompt.topic]);
+  }, [prompt.id, prompt.topic, uid, isAnonymous, sessionUsed]);
 
   const restart = () => {
     setPhase("idle");
@@ -87,6 +141,9 @@ export default function PracticePage({ params }: PageProps) {
     setScores(null);
     setError(null);
     setStreaming(false);
+    if (uid) {
+      getSessionCount(uid, "speaking").then(({ used }) => setSessionUsed(used));
+    }
   };
 
   const typeLabel = prompt.type === "independent" ? "Independent" : "Integrated";
@@ -104,13 +161,22 @@ export default function PracticePage({ params }: PageProps) {
           </svg>
         </Link>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${typeColor}`}>
               {typeLabel}
             </span>
             <span className="text-xs text-gray-400">
               {prompt.prepSeconds}s prep · {prompt.speakSeconds}s speaking
             </span>
+            {uid && (
+              <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${
+                sessionUsed >= SESSION_LIMIT
+                  ? "bg-red-50 text-red-600 border-red-100"
+                  : "bg-gray-50 text-gray-500 border-gray-100"
+              }`}>
+                {SESSION_LIMIT - sessionUsed} sesi tersisa
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -208,6 +274,18 @@ export default function PracticePage({ params }: PageProps) {
             Pilih Soal Lain
           </Link>
         </div>
+      )}
+      {showUpgrade && (
+        <EmailUpgradeSheet
+          onDismiss={() => {
+            sessionStorage.setItem("upgrade-dismissed", "1");
+            setShowUpgrade(false);
+          }}
+          onSuccess={() => {
+            setIsAnonymous(false);
+            setShowUpgrade(false);
+          }}
+        />
       )}
     </main>
   );
