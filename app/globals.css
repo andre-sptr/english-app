@@ -5,8 +5,9 @@
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
+    background: #FAFAF8;
   }
   body {
-    @apply bg-gray-50 text-gray-900 antialiased;
+    @apply bg-base text-ink antialiased;
   }
 }

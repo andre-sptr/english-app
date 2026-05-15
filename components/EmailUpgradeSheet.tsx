@@ -57,12 +57,12 @@ export default function EmailUpgradeSheet({ onDismiss, onSuccess }: Props) {
       />
 
       {/* Sheet */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-2xl p-6 max-w-md mx-auto">
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-surface rounded-t-3xl shadow-2xl p-6 max-w-md mx-auto">
         {/* Handle */}
         <div className="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-5" />
 
         <div className="flex flex-col gap-1 mb-5">
-          <h2 className="text-lg font-bold text-gray-900">
+          <h2 className="font-display text-2xl leading-tight text-ink">
             {mode === "upgrade" ? "Simpan Progresmu" : "Masuk ke Akun"}
           </h2>
           <p className="text-sm text-gray-500">
@@ -81,7 +81,7 @@ export default function EmailUpgradeSheet({ onDismiss, onSuccess }: Props) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="email@kamu.com"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition"
+              className="w-full px-4 py-3 rounded-xl border border-subtle text-sm focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition"
             />
           </div>
 
@@ -97,7 +97,7 @@ export default function EmailUpgradeSheet({ onDismiss, onSuccess }: Props) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={mode === "upgrade" ? "Min. 6 karakter" : "Password"}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition pr-10"
+                className="w-full px-4 py-3 rounded-xl border border-subtle text-sm focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition pr-10"
               />
               <button
                 type="button"
@@ -127,7 +127,7 @@ export default function EmailUpgradeSheet({ onDismiss, onSuccess }: Props) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm transition-colors disabled:opacity-60"
+            className="w-full py-3.5 rounded-xl bg-ink hover:bg-ink/90 text-white font-semibold text-sm transition-colors disabled:opacity-60"
           >
             {loading ? "Menyimpan…" : mode === "upgrade" ? "Simpan Progres" : "Masuk"}
           </button>

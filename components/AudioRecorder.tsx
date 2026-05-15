@@ -183,7 +183,7 @@ export default function AudioRecorder({
         </div>
 
         {/* Live transcription */}
-        <div className="w-full min-h-[80px] rounded-xl bg-gray-50 border border-gray-200 p-3 text-sm text-gray-700">
+        <div className="w-full min-h-[80px] rounded-xl bg-surface-2 border border-subtle p-3 text-sm text-gray-700">
           {finalText || interimText ? (
             <>
               <span>{finalText}</span>

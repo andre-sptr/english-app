@@ -18,7 +18,7 @@ export default function VocabPage() {
   const progressPct = Math.round((masteredCount / VOCAB_WORDS.length) * 100);
 
   return (
-    <main className="flex flex-col gap-6 pt-6">
+    <main className="flex flex-col gap-6 pt-8">
       <div className="flex items-center gap-3">
         <Link href="/" className="text-gray-400 hover:text-gray-600 transition-colors">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -26,29 +26,29 @@ export default function VocabPage() {
           </svg>
         </Link>
         <div>
-          <h1 className="font-bold text-gray-900 text-lg">Vocabulary TOEFL</h1>
-          <p className="text-xs text-gray-400">{VOCAB_WORDS.length} kata akademik penting</p>
+          <h1 className="font-display text-2xl leading-tight text-ink">Vocabulary TOEFL</h1>
+          <p className="text-xs text-muted">{VOCAB_WORDS.length} kata akademik penting</p>
         </div>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="rounded-xl bg-white border border-gray-200 p-3 text-center shadow-sm">
-          <p className="text-xl font-bold text-brand-700">{dueCount}</p>
+        <div className="rounded-xl bg-surface border border-subtle p-3 text-center shadow-sm">
+          <p className="font-display text-3xl leading-none text-ink">{dueCount}</p>
           <p className="text-xs text-gray-400 mt-0.5">Harus review</p>
         </div>
-        <div className="rounded-xl bg-white border border-gray-200 p-3 text-center shadow-sm">
-          <p className="text-xl font-bold text-brand-700">{masteredCount}</p>
+        <div className="rounded-xl bg-surface border border-subtle p-3 text-center shadow-sm">
+          <p className="font-display text-3xl leading-none text-ink">{masteredCount}</p>
           <p className="text-xs text-gray-400 mt-0.5">Dikuasai</p>
         </div>
-        <div className="rounded-xl bg-white border border-gray-200 p-3 text-center shadow-sm">
-          <p className="text-xl font-bold text-brand-700">{progressPct}%</p>
+        <div className="rounded-xl bg-surface border border-subtle p-3 text-center shadow-sm">
+          <p className="font-display text-3xl leading-none text-ink">{progressPct}%</p>
           <p className="text-xs text-gray-400 mt-0.5">Progress</p>
         </div>
       </div>
 
       {/* Progress bar */}
-      <div className="rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
+      <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm">
         <div className="flex items-center justify-between mb-2">
           <p className="text-sm font-medium text-gray-700">Penguasaan Kosakata</p>
           <span className="text-xs text-gray-400">{masteredCount}/{VOCAB_WORDS.length}</span>
@@ -68,7 +68,7 @@ export default function VocabPage() {
       {dueCount > 0 ? (
         <Link
           href="/vocab/review"
-          className="block w-full py-4 rounded-2xl bg-brand-600 hover:bg-brand-700 active:scale-95 transition-all text-white text-center text-lg font-semibold shadow-lg"
+          className="block w-full py-4 rounded-2xl bg-ink hover:bg-ink/90 active:scale-95 transition-all text-white text-center text-lg font-semibold shadow-lg"
         >
           Review {dueCount} Kata Sekarang
         </Link>
@@ -84,7 +84,7 @@ export default function VocabPage() {
         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Semua Kata</p>
         <div className="flex flex-col gap-2">
           {VOCAB_WORDS.map((w) => (
-            <div key={w.id} className="rounded-xl bg-white border border-gray-200 px-4 py-3 flex items-center justify-between shadow-sm">
+            <div key={w.id} className="rounded-xl bg-surface border border-subtle px-4 py-3 flex items-center justify-between shadow-sm">
               <div>
                 <span className="font-semibold text-gray-800 text-sm">{w.word}</span>
                 <span className="text-xs text-gray-400 ml-2">({w.partOfSpeech})</span>

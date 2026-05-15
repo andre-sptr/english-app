@@ -152,7 +152,7 @@ export default function PracticePage({ params }: PageProps) {
     : "bg-purple-50 text-purple-700 border-purple-100";
 
   return (
-    <main className="flex flex-col gap-5 pt-6">
+    <main className="flex flex-col gap-5 pt-8">
       {/* Header */}
       <div className="flex items-center gap-3">
         <Link href="/speaking" className="text-gray-400 hover:text-gray-600 transition-colors">
@@ -182,7 +182,7 @@ export default function PracticePage({ params }: PageProps) {
       </div>
 
       {/* Task prompt card */}
-      <div className="rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
+      <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm">
         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
           Soal TOEFL Speaking
         </p>
@@ -191,7 +191,7 @@ export default function PracticePage({ params }: PageProps) {
             <summary className="cursor-pointer text-xs text-brand-600 font-medium">
               Baca konteks (Integrated)
             </summary>
-            <div className="mt-2 p-3 rounded-lg bg-gray-50 text-xs text-gray-600 leading-relaxed whitespace-pre-line">
+            <div className="mt-2 p-3 rounded-lg bg-surface-2 text-xs text-gray-600 leading-relaxed whitespace-pre-line">
               {prompt.context}
             </div>
           </details>
@@ -201,7 +201,7 @@ export default function PracticePage({ params }: PageProps) {
 
       {/* Recording UI */}
       {(phase === "idle" || phase === "prep" || phase === "recording") && (
-        <div className="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm">
+        <div className="rounded-2xl bg-surface border border-subtle p-5 shadow-sm">
           <AudioRecorder
             prepSeconds={prompt.prepSeconds}
             speakSeconds={prompt.speakSeconds}
@@ -226,7 +226,7 @@ export default function PracticePage({ params }: PageProps) {
 
       {/* Processing spinner */}
       {phase === "processing" && !streamedText && (
-        <div className="rounded-2xl bg-white border border-gray-200 p-8 shadow-sm flex flex-col items-center gap-3">
+        <div className="rounded-2xl bg-surface border border-subtle p-8 shadow-sm flex flex-col items-center gap-3">
           <div className="w-10 h-10 border-3 border-brand-600 border-t-transparent rounded-full animate-spin" />
           <p className="text-sm text-gray-500">AI sedang menilai jawabanmu…</p>
         </div>
@@ -250,7 +250,7 @@ export default function PracticePage({ params }: PageProps) {
 
       {/* Transcription (collapsible) */}
       {transcription && phase === "result" && (
-        <details className="rounded-2xl bg-white border border-gray-200 shadow-sm">
+        <details className="rounded-2xl bg-surface border border-subtle shadow-sm">
           <summary className="p-4 cursor-pointer text-sm font-medium text-gray-500 hover:text-gray-700">
             Lihat transkrip jawaban kamu
           </summary>
@@ -269,7 +269,7 @@ export default function PracticePage({ params }: PageProps) {
           </button>
           <Link
             href="/speaking"
-            className="block w-full py-3 rounded-2xl border border-gray-200 hover:bg-gray-50 active:scale-95 transition-all text-gray-700 font-medium text-center"
+            className="block w-full py-3 rounded-2xl border border-subtle hover:bg-surface-2 active:scale-95 transition-all text-gray-700 font-medium text-center"
           >
             Pilih Soal Lain
           </Link>

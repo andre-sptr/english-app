@@ -1,5 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import { DM_Serif_Display } from "next/font/google";
 import "./globals.css";
+
+const dmSerif = DM_Serif_Display({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-dm-serif",
+});
 
 export const metadata: Metadata = {
   title: "EnglishHub SMA — Latihan TOEFL Speaking",
@@ -20,8 +27,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body className="min-h-screen">
-        <div className="max-w-lg mx-auto px-4 pb-16">{children}</div>
+      <body className={`${dmSerif.variable} min-h-screen`}>
+        <div className="max-w-lg mx-auto px-6 pb-16">{children}</div>
       </body>
     </html>
   );

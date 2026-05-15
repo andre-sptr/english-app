@@ -78,7 +78,7 @@ export default function ScoreCard({ feedback, scores, streaming }: Props) {
   return (
     <div className="flex flex-col gap-4">
       {/* Feedback text */}
-      <div className="rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
+      <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm">
         <p className="text-sm font-semibold text-gray-500 mb-2 uppercase tracking-wide">Feedback AI</p>
         <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap">
           {body}
@@ -97,7 +97,7 @@ export default function ScoreCard({ feedback, scores, streaming }: Props) {
 
       {/* Scores */}
       {scores && (
-        <div className="rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
+        <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Skor TOEFL</p>
             {avg && (
@@ -123,7 +123,7 @@ export default function ScoreCard({ feedback, scores, streaming }: Props) {
 
       {/* Loading skeleton for scores */}
       {streaming && !scores && (
-        <div className="rounded-2xl bg-white border border-gray-100 p-4 shadow-sm animate-pulse">
+        <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm animate-pulse">
           <div className="h-3 w-32 bg-gray-200 rounded mb-4" />
           {[1, 2, 3].map((i) => (
             <div key={i} className="flex items-center gap-3 mb-3">

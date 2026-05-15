@@ -51,7 +51,7 @@ export default function VocabReviewPage() {
 
   if (!loaded) {
     return (
-      <main className="flex flex-col gap-6 pt-6">
+    <main className="flex flex-col gap-6 pt-8">
         <div className="h-4 w-32 bg-gray-200 rounded animate-pulse" />
       </main>
     );
@@ -59,21 +59,21 @@ export default function VocabReviewPage() {
 
   if (queue.length === 0 || phase === "done") {
     return (
-      <main className="flex flex-col gap-6 pt-6 items-center text-center">
+      <main className="flex flex-col gap-6 pt-8 items-center text-center">
         <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
           <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
         <div>
-          <p className="text-xl font-bold text-gray-900">Review Selesai!</p>
+          <p className="font-display text-2xl text-ink">Review Selesai!</p>
           <p className="text-sm text-gray-500 mt-1">
             {reviewedCount > 0 ? `Kamu mereview ${reviewedCount} kata.` : "Tidak ada kata yang harus direview sekarang."}
           </p>
         </div>
         <Link
           href="/vocab"
-          className="px-8 py-3 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white font-semibold transition-colors"
+          className="px-8 py-3 rounded-2xl bg-ink hover:bg-ink/90 text-white font-semibold transition-colors"
         >
           Kembali ke Vocab
         </Link>
@@ -84,7 +84,7 @@ export default function VocabReviewPage() {
   const progress = Math.round((currentIdx / queue.length) * 100);
 
   return (
-    <main className="flex flex-col gap-5 pt-6">
+    <main className="flex flex-col gap-5 pt-8">
       {/* Header */}
       <div className="flex items-center gap-3">
         <Link href="/vocab" className="text-gray-400 hover:text-gray-600 transition-colors">
@@ -107,11 +107,11 @@ export default function VocabReviewPage() {
       {currentWord && (
         <div className="flex flex-col gap-4">
           {/* Front */}
-          <div className="rounded-3xl bg-white border border-gray-200 shadow-sm p-8 min-h-[200px] flex flex-col items-center justify-center gap-2">
+          <div className="rounded-3xl bg-surface border border-subtle shadow-sm p-8 min-h-[200px] flex flex-col items-center justify-center gap-2">
             <p className="text-xs text-gray-400 uppercase tracking-widest">
               {currentWord.partOfSpeech}
             </p>
-            <p className="text-4xl font-bold text-gray-900 text-center">{currentWord.word}</p>
+            <p className="font-display text-5xl text-ink text-center">{currentWord.word}</p>
           </div>
 
           {/* Reveal button / Back */}

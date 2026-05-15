@@ -169,7 +169,7 @@ export default function WritingPracticePage({ params }: PageProps) {
   };
 
   return (
-    <main className="flex flex-col gap-5 pt-6">
+    <main className="flex flex-col gap-5 pt-8">
       <div className="flex items-center gap-3">
         <Link href="/writing" className="text-gray-400 hover:text-gray-600 transition-colors">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -194,19 +194,19 @@ export default function WritingPracticePage({ params }: PageProps) {
         )}
       </div>
 
-      <div className="rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
+      <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm">
         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Soal TOEFL Writing</p>
         {prompt.context && (
           <details className="mb-3">
             <summary className="cursor-pointer text-xs text-brand-600 font-medium">Baca konteks (Integrated)</summary>
-            <div className="mt-2 p-3 rounded-lg bg-gray-50 text-xs text-gray-600 leading-relaxed whitespace-pre-line">{prompt.context}</div>
+            <div className="mt-2 p-3 rounded-lg bg-surface-2 text-xs text-gray-600 leading-relaxed whitespace-pre-line">{prompt.context}</div>
           </details>
         )}
         <p className="text-sm text-gray-800 leading-relaxed">{prompt.topic}</p>
       </div>
 
       {phase === "idle" && (
-        <div className="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm flex flex-col gap-4">
+        <div className="rounded-2xl bg-surface border border-subtle p-5 shadow-sm flex flex-col gap-4">
           <div className="flex items-start gap-2 p-3 rounded-xl bg-amber-50 border border-amber-100">
             <svg className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
@@ -215,7 +215,7 @@ export default function WritingPracticePage({ params }: PageProps) {
           </div>
           <button
             onClick={startWriting}
-            className="w-full py-4 rounded-2xl bg-brand-600 hover:bg-brand-700 active:scale-95 transition-all text-white text-lg font-semibold shadow-lg"
+            className="w-full py-4 rounded-2xl bg-ink hover:bg-ink/90 active:scale-95 transition-all text-white text-lg font-semibold shadow-lg"
           >
             Mulai Menulis
           </button>
@@ -223,7 +223,7 @@ export default function WritingPracticePage({ params }: PageProps) {
       )}
 
       {phase === "writing" && (
-        <div className="rounded-2xl bg-white border border-gray-200 p-4 shadow-sm flex flex-col gap-3">
+        <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm flex flex-col gap-3">
           <textarea
             value={essay}
             onChange={(e) => setEssay(e.target.value)}
@@ -247,7 +247,7 @@ export default function WritingPracticePage({ params }: PageProps) {
       )}
 
       {phase === "processing" && !streamedText && (
-        <div className="rounded-2xl bg-white border border-gray-200 p-8 shadow-sm flex flex-col items-center gap-3">
+        <div className="rounded-2xl bg-surface border border-subtle p-8 shadow-sm flex flex-col items-center gap-3">
           <div className="w-10 h-10 border-4 border-brand-600 border-t-transparent rounded-full animate-spin" />
           <p className="text-sm text-gray-500">AI sedang menilai esaimu…</p>
         </div>
@@ -258,7 +258,7 @@ export default function WritingPracticePage({ params }: PageProps) {
         const total = scores ? scores.content + scores.organization + scores.language_use : null;
         return (
           <div className="flex flex-col gap-4">
-            <div className="rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
+            <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm">
               <p className="text-sm font-semibold text-gray-500 mb-2 uppercase tracking-wide">Feedback AI</p>
               <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap">
                 {body}
@@ -273,7 +273,7 @@ export default function WritingPracticePage({ params }: PageProps) {
             </div>
 
             {scores && (
-              <div className="rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
+              <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Skor Writing</p>
                   {total !== null && <p className="text-xl font-bold text-brand-700">{total} / 12</p>}
@@ -303,7 +303,7 @@ export default function WritingPracticePage({ params }: PageProps) {
           >
             Coba Lagi Soal Ini
           </button>
-          <Link href="/writing" className="block w-full py-3 rounded-2xl border border-gray-200 hover:bg-gray-50 transition-all text-gray-700 font-medium text-center">
+          <Link href="/writing" className="block w-full py-3 rounded-2xl border border-subtle hover:bg-surface-2 transition-all text-gray-700 font-medium text-center">
             Pilih Soal Lain
           </Link>
         </div>

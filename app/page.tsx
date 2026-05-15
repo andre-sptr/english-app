@@ -9,7 +9,7 @@ const FEATURES = [
       </svg>
     ),
     title: "Speaking",
-    desc: "Rekam & skor TOEFL Speaking dengan AI",
+    desc: "Rekam dan skor TOEFL Speaking dengan AI",
     badge: "3 sesi/hari",
     color: "bg-brand-50 text-brand-600 border-brand-100",
   },
@@ -21,7 +21,7 @@ const FEATURES = [
       </svg>
     ),
     title: "Writing",
-    desc: "Tulis esai & dapat feedback Content, Organization, Language",
+    desc: "Tulis esai dan dapat feedback Content, Organization, Language",
     badge: "2 sesi/hari",
     color: "bg-purple-50 text-purple-600 border-purple-100",
   },
@@ -41,99 +41,99 @@ const FEATURES = [
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="pt-10 pb-6">
+    <main className="flex min-h-screen flex-col">
+      <header className="pt-12 pb-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
-              <span className="text-white text-sm font-bold">E</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink">
+              <span className="text-sm font-bold text-white">E</span>
             </div>
-            <span className="font-semibold text-gray-900">EnglishHub SMA</span>
+            <span className="text-base font-bold text-ink">EnglishHub SMA</span>
           </div>
-          <Link href="/progress" className="text-xs text-gray-400 hover:text-brand-600 transition-colors font-medium py-2 px-1 -mx-1 min-h-[44px] flex items-center">
-            Riwayat →
+          <Link
+            href="/progress"
+            className="rounded-full border border-subtle bg-surface px-3 py-1.5 text-xs font-medium text-secondary transition-colors hover:border-brand-200 hover:text-brand-600"
+          >
+            Riwayat
           </Link>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="flex flex-col gap-3 pb-6">
-        <div className="inline-flex items-center gap-1.5 bg-brand-50 border border-brand-100 text-brand-700 text-xs font-medium px-3 py-1.5 rounded-full w-fit">
-          <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
-          TOEFL-Aligned AI Scoring
-        </div>
-        <h1 className="text-3xl font-bold text-gray-900 leading-tight">
-          Persiapan TOEFL<br />
-          <span className="text-brand-600">Lengkap dengan AI</span>
+      <section className="flex flex-col gap-4 pb-8">
+        <h1 className="font-display text-4xl font-normal leading-[1.15] text-ink">
+          Persiapan TOEFL{" "}
+          <br />
+          Lengkap dengan AI
         </h1>
-        <p className="text-gray-500 text-base leading-relaxed">
-          Speaking, Writing, dan Vocabulary dalam satu platform — skor langsung dari AI sesuai rubrik ETS TOEFL.
+        <div className="h-0.5 w-10 rounded-full bg-brand-600" />
+        <p className="text-[15px] leading-relaxed text-secondary">
+          Speaking, Writing, dan Vocabulary dalam satu platform - skor langsung dari AI sesuai rubrik ETS TOEFL.
         </p>
       </section>
 
-      {/* Feature cards */}
-      <section className="flex flex-col gap-3 pb-6">
-        {FEATURES.map((f) => (
+      <section className="flex flex-col gap-4 pb-8">
+        {FEATURES.map((feature) => (
           <Link
-            key={f.href}
-            href={f.href}
-            className="rounded-2xl bg-white border border-gray-200 p-4 shadow-sm hover:shadow-md hover:border-brand-200 active:scale-98 transition-all group flex items-center gap-4"
+            key={feature.href}
+            href={feature.href}
+            className="group flex items-center gap-4 rounded-2xl border border-subtle bg-surface p-5 shadow-sm transition-all hover:border-brand-200 hover:shadow-md active:scale-[0.98]"
           >
-            <div className={`w-12 h-12 rounded-xl border flex items-center justify-center shrink-0 ${f.color}`}>
-              {f.icon}
+            <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border ${feature.color}`}>
+              {feature.icon}
             </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-0.5">
-                <p className="font-semibold text-gray-900 text-sm">{f.title}</p>
-                <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{f.badge}</span>
+            <div className="min-w-0 flex-1">
+              <div className="mb-1 flex items-center gap-2">
+                <p className="font-display text-[21px] leading-none text-ink">{feature.title}</p>
+                <span className="rounded-full border border-subtle bg-surface-2 px-2 py-0.5 text-xs text-muted">
+                  {feature.badge}
+                </span>
               </div>
-              <p className="text-xs text-gray-500 leading-relaxed">{f.desc}</p>
+              <p className="text-xs leading-relaxed text-secondary">{feature.desc}</p>
             </div>
-            <svg className="w-4 h-4 text-gray-300 group-hover:text-brand-500 shrink-0 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-4 w-4 shrink-0 text-muted/60 transition-colors group-hover:text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </Link>
         ))}
       </section>
 
-      {/* Stats */}
       <section className="grid grid-cols-3 gap-3 pb-6">
         {[
-          { value: "0–4", label: "Skala skor" },
+          { value: "0-4", label: "Skala skor" },
           { value: "50+", label: "Kata vocab" },
           { value: "1 fix", label: "Per latihan" },
         ].map(({ value, label }) => (
-          <div key={label} className="rounded-xl bg-white border border-gray-200 p-3 text-center shadow-sm">
-            <p className="text-xl font-bold text-brand-700">{value}</p>
-            <p className="text-xs text-gray-400 mt-0.5">{label}</p>
+          <div key={label} className="rounded-xl border border-subtle bg-surface p-3 text-center shadow-sm">
+            <p className="font-display text-4xl leading-none text-ink">{value}</p>
+            <p className="mt-1.5 text-[11px] font-medium uppercase tracking-wide text-muted">{label}</p>
           </div>
         ))}
       </section>
 
-      {/* How it works */}
-      <section className="py-6 border-t border-gray-100">
-        <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">Cara Kerja</h2>
+      <section className="border-t border-subtle py-6">
+        <h2 className="mb-4 text-xs font-semibold uppercase tracking-wide text-muted">Cara Kerja</h2>
         <div className="flex flex-col gap-4">
           {[
-            { step: "1", title: "Pilih modul & soal", desc: "Speaking, Writing, atau review Vocabulary — sesuai yang ingin kamu latih hari ini." },
+            { step: "1", title: "Pilih modul dan soal", desc: "Speaking, Writing, atau review Vocabulary sesuai yang ingin kamu latih hari ini." },
             { step: "2", title: "Kerjakan tugasnya", desc: "Rekam jawaban speaking, tulis esai, atau review kartu kosakata dengan timer otomatis." },
-            { step: "3", title: "Terima skor & feedback AI", desc: "Skor rubrik TOEFL + 1 perbaikan spesifik langsung dari Claude AI setiap sesi." },
+            { step: "3", title: "Terima skor dan feedback AI", desc: "Skor rubrik TOEFL plus 1 perbaikan spesifik langsung dari Claude AI setiap sesi." },
           ].map(({ step, title, desc }) => (
             <div key={step} className="flex gap-3">
-              <div className="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+              <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">
                 {step}
               </div>
               <div>
-                <p className="font-semibold text-gray-800 text-sm">{title}</p>
-                <p className="text-gray-500 text-sm mt-0.5">{desc}</p>
+                <p className="text-sm font-semibold text-ink">{title}</p>
+                <p className="mt-0.5 text-sm leading-relaxed text-secondary">{desc}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <p className="text-center text-xs text-gray-500 py-6">Gratis · Tanpa login · Data tersimpan di perangkat</p>
+      <p className="py-6 text-center text-xs font-medium text-ink">
+        Gratis. Tanpa login. Data tersimpan di perangkat.
+      </p>
     </main>
   );
 }

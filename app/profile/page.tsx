@@ -50,9 +50,9 @@ export default function ProfilePage() {
 
   if (pageState === "loading") {
     return (
-      <main className="flex flex-col gap-5 pt-6">
+      <main className="flex flex-col gap-5 pt-8">
         <div className="h-7 w-24 bg-gray-200 rounded-lg animate-pulse" />
-        <div className="rounded-2xl bg-white border border-gray-100 p-5 animate-pulse">
+        <div className="rounded-2xl bg-surface border border-subtle p-5 animate-pulse">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-14 h-14 rounded-2xl bg-gray-200" />
             <div className="flex flex-col gap-2">
@@ -64,7 +64,7 @@ export default function ProfilePage() {
           <div className="h-3 w-4/5 bg-gray-100 rounded mb-4" />
           <div className="h-10 w-full bg-gray-200 rounded-xl" />
         </div>
-        <div className="rounded-2xl bg-white border border-gray-100 h-28 animate-pulse" />
+        <div className="rounded-2xl bg-surface border border-subtle h-28 animate-pulse" />
       </main>
     );
   }
@@ -72,7 +72,7 @@ export default function ProfilePage() {
   const isAnonymous = user?.isAnonymous ?? true;
 
   return (
-    <main className="flex flex-col gap-5 pt-6">
+    <main className="flex flex-col gap-5 pt-8">
       {/* Header */}
       <div className="flex items-center gap-3">
         <Link href="/progress" className="text-gray-400 hover:text-gray-600 transition-colors">
@@ -80,11 +80,11 @@ export default function ProfilePage() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </Link>
-        <h1 className="font-bold text-gray-900 text-lg">Profil</h1>
+        <h1 className="font-display text-2xl leading-tight text-ink">Profil</h1>
       </div>
 
       {/* Auth status card */}
-      <div className="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm">
+      <div className="rounded-2xl bg-surface border border-subtle p-5 shadow-sm">
         <div className="flex items-center gap-4 mb-4">
           <div className="w-14 h-14 rounded-2xl bg-brand-50 border border-brand-100 flex items-center justify-center">
             <svg className="w-7 h-7 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,7 +112,7 @@ export default function ProfilePage() {
             </p>
             <button
               onClick={() => setShowUpgrade(true)}
-              className="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold transition-colors"
+              className="w-full py-3 rounded-xl bg-ink hover:bg-ink/90 text-white text-sm font-semibold transition-colors"
             >
               Simpan Progres dengan Email
             </button>
@@ -133,7 +133,7 @@ export default function ProfilePage() {
 
       {/* Sign in on new device (for registered users) */}
       {isAnonymous && (
-        <div className="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm">
+        <div className="rounded-2xl bg-surface border border-subtle p-5 shadow-sm">
           <p className="text-sm font-semibold text-gray-800 mb-1">Sudah punya akun?</p>
           <p className="text-xs text-gray-500 mb-4">
             Jika kamu pernah mendaftar sebelumnya, masuk di sini untuk menyambungkan riwayat.
@@ -141,7 +141,7 @@ export default function ProfilePage() {
           {!showSignIn ? (
             <button
               onClick={() => setShowSignIn(true)}
-              className="w-full py-3 rounded-xl border border-gray-200 hover:bg-gray-50 text-gray-700 text-sm font-semibold transition-colors"
+              className="w-full py-3 rounded-xl border border-subtle hover:bg-surface-2 text-secondary text-sm font-semibold transition-colors"
             >
               Masuk dengan Email
             </button>
@@ -153,7 +153,7 @@ export default function ProfilePage() {
                 value={siEmail}
                 onChange={(e) => setSiEmail(e.target.value)}
                 placeholder="Email"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition"
+                className="w-full px-4 py-3 rounded-xl border border-subtle text-sm focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition"
               />
               <input
                 type="password"
@@ -161,7 +161,7 @@ export default function ProfilePage() {
                 value={siPassword}
                 onChange={(e) => setSiPassword(e.target.value)}
                 placeholder="Password"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition"
+                className="w-full px-4 py-3 rounded-xl border border-subtle text-sm focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition"
               />
               {siError && (
                 <p className="text-xs text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2">{siError}</p>
@@ -169,7 +169,7 @@ export default function ProfilePage() {
               <button
                 type="submit"
                 disabled={siLoading}
-                className="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:opacity-60 text-white text-sm font-semibold transition-colors"
+                className="w-full py-3 rounded-xl bg-ink hover:bg-ink/90 disabled:opacity-60 text-white text-sm font-semibold transition-colors"
               >
                 {siLoading ? "Masuk…" : "Masuk"}
               </button>
@@ -182,7 +182,7 @@ export default function ProfilePage() {
       )}
 
       {/* App info */}
-      <div className="rounded-2xl bg-white border border-gray-200 p-5 shadow-sm flex flex-col gap-3">
+      <div className="rounded-2xl bg-surface border border-subtle p-5 shadow-sm flex flex-col gap-3">
         <p className="text-sm font-semibold text-gray-800">Tentang EnglishHub SMA</p>
         <div className="flex flex-col gap-2 text-xs text-gray-500">
           <div className="flex justify-between">

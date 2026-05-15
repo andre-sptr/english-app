@@ -124,7 +124,7 @@ export default function ProgressPage() {
   ];
 
   return (
-    <main className="flex flex-col gap-5 pt-6">
+    <main className="flex flex-col gap-5 pt-8">
       {/* Header */}
       <div className="flex items-center gap-3">
         <Link href="/" className="text-gray-400 hover:text-gray-600 transition-colors">
@@ -132,11 +132,11 @@ export default function ProgressPage() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </Link>
-        <div className="flex-1">
-          <h1 className="font-bold text-gray-900 text-lg">Riwayat & Progress</h1>
-          <p className="text-xs text-gray-500">{all.length} sesi tercatat</p>
+        <div className="flex-1 min-w-0">
+          <h1 className="font-display text-2xl leading-tight text-ink">Riwayat & Progress</h1>
+          <p className="text-xs text-muted">{all.length} sesi tercatat</p>
         </div>
-        <Link href="/profile" className="text-xs text-brand-600 font-medium hover:text-brand-700 py-2 px-1 -mx-1 min-h-[44px] flex items-center">
+        <Link href="/profile" className="text-xs text-brand-600 font-medium hover:text-brand-700 py-2 px-1 -mx-1 min-h-[44px] flex items-center shrink-0">
           Profil →
         </Link>
       </div>
@@ -144,7 +144,7 @@ export default function ProgressPage() {
       {loading && (
         <div className="flex flex-col gap-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="rounded-2xl bg-white border border-gray-100 p-4 animate-pulse h-20" />
+            <div key={i} className="rounded-2xl bg-surface border border-subtle p-4 animate-pulse h-20" />
           ))}
         </div>
       )}
@@ -156,7 +156,7 @@ export default function ProgressPage() {
       )}
 
       {!loading && !noFirebase && all.length === 0 && (
-        <div className="rounded-2xl bg-white border border-gray-200 p-8 flex flex-col items-center gap-3 text-center">
+        <div className="rounded-2xl bg-surface border border-subtle p-8 flex flex-col items-center gap-3 text-center">
           <div className="w-12 h-12 rounded-full bg-brand-50 flex items-center justify-center">
             <svg className="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -166,7 +166,7 @@ export default function ProgressPage() {
             <p className="font-semibold text-gray-800">Belum ada riwayat</p>
             <p className="text-sm text-gray-400 mt-1">Selesaikan sesi pertamamu untuk melihat perkembanganmu.</p>
           </div>
-          <Link href="/speaking" className="mt-2 px-6 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-semibold hover:bg-brand-700 transition-colors">
+          <Link href="/speaking" className="mt-2 px-6 py-2.5 rounded-xl bg-ink text-white text-sm font-semibold hover:bg-ink/90 transition-colors">
             Mulai Speaking
           </Link>
         </div>
@@ -176,23 +176,23 @@ export default function ProgressPage() {
         <>
           {/* Top stats */}
           <div className="grid grid-cols-3 gap-3">
-            <div className="rounded-xl bg-white border border-gray-200 p-3 text-center shadow-sm">
-              <p className="text-xl font-bold text-brand-700">{all.length}</p>
+            <div className="rounded-xl bg-surface border border-subtle p-3 text-center shadow-sm">
+              <p className="font-display text-3xl leading-none text-ink">{all.length}</p>
               <p className="text-xs text-gray-400 mt-0.5">Sesi total</p>
             </div>
-            <div className="rounded-xl bg-white border border-gray-200 p-3 text-center shadow-sm">
-              <p className="text-xl font-bold text-brand-700">{avgTotal ?? "—"}</p>
+            <div className="rounded-xl bg-surface border border-subtle p-3 text-center shadow-sm">
+              <p className="font-display text-3xl leading-none text-ink">{avgTotal ?? "—"}</p>
               <p className="text-xs text-gray-400 mt-0.5">Rata-rata /12</p>
             </div>
-            <div className="rounded-xl bg-white border border-gray-200 p-3 text-center shadow-sm">
-              <p className="text-xl font-bold text-brand-700">{streak}</p>
+            <div className="rounded-xl bg-surface border border-subtle p-3 text-center shadow-sm">
+              <p className="font-display text-3xl leading-none text-ink">{streak}</p>
               <p className="text-xs text-gray-400 mt-0.5">Hari beruntun</p>
             </div>
           </div>
 
           {/* Score trend chart */}
           {sessions.length >= 2 && (
-            <div className="rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
+            <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm">
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Tren Skor (terbaru di kanan)</p>
               <Sparkline data={[...sessions].reverse().slice(-10).map((s) => s.total)} />
               <div className="flex justify-between text-xs text-gray-400 mt-1">
@@ -203,7 +203,7 @@ export default function ProgressPage() {
           )}
 
           {/* Dimension averages */}
-          <div className="rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
+          <div className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm">
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Rata-rata per Dimensi</p>
             {spk.length > 0 && (
               <div className="mb-4">
@@ -237,7 +237,7 @@ export default function ProgressPage() {
                   "px-3 py-1.5 rounded-full text-xs font-medium border transition-colors",
                   filter === key
                     ? "bg-brand-600 text-white border-brand-600"
-                    : "border-gray-200 text-gray-600 bg-white hover:border-brand-200"
+                    : "border-subtle text-secondary bg-surface hover:border-brand-200"
                 )}
               >
                 {label}
@@ -264,7 +264,7 @@ export default function ProgressPage() {
                     { label: "LU", score: s.language_use },
                   ];
               return (
-                <div key={s.id} className="rounded-2xl bg-white border border-gray-200 p-4 shadow-sm">
+                <div key={s.id} className="rounded-2xl bg-surface border border-subtle p-4 shadow-sm">
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5 mb-1">
@@ -279,7 +279,7 @@ export default function ProgressPage() {
                       <p className="text-sm text-gray-700 line-clamp-1">{s.promptTopic}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-xl font-bold text-gray-900">
+                      <p className="text-xl font-bold text-ink">
                         {s.total}<span className="text-xs font-normal text-gray-400">/12</span>
                       </p>
                     </div>

@@ -8,6 +8,13 @@ export default {
   theme: {
     extend: {
       colors: {
+        base: "#FAFAF8",
+        surface: "#FFFFFF",
+        "surface-2": "#F4F4F1",
+        ink: "#0B1929",
+        secondary: "#4A5568",
+        muted: "#6B7280",
+        subtle: "#E8E8E4",
         brand: {
           50:  "#eff6ff",
           100: "#dbeafe",
@@ -16,6 +23,9 @@ export default {
           700: "#1d4ed8",
           900: "#1e3a8a",
         },
+      },
+      fontFamily: {
+        display: ["var(--font-dm-serif)", "Georgia", "serif"],
       },
       animation: {
         "pulse-ring": "pulse-ring 1.5s ease-out infinite",
