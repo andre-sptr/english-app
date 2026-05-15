@@ -25,7 +25,7 @@ function BrandMark() {
         EH
       </div>
       <div className="leading-tight">
-        <p className="text-sm font-extrabold tracking-tight text-ink">EnglishHub SMA</p>
+        <p className="text-sm font-extrabold tracking-tight text-ink">EnglishHub</p>
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">AI TOEFL Studio</p>
       </div>
     </Link>

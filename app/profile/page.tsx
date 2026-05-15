@@ -155,7 +155,7 @@ export default function ProfilePage() {
               <ShieldCheck className="h-6 w-6" />
             </div>
             <div>
-              <p className="text-lg font-black text-ink">Tentang EnglishHub SMA</p>
+              <p className="text-lg font-black text-ink">Tentang EnglishHub</p>
               <p className="text-sm text-secondary">Ringkasan modul yang tersedia di perangkat ini.</p>
             </div>
           </div>

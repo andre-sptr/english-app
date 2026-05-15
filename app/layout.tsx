@@ -16,7 +16,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "EnglishHub SMA - Latihan TOEFL dengan AI",
+  title: "EnglishHub - Latihan TOEFL dengan AI",
   description:
     "Latihan TOEFL Speaking dengan AI. Rekam jawaban kamu, dapatkan skor dan feedback instan sesuai rubrik ETS TOEFL.",
 };
