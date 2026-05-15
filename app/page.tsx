@@ -51,7 +51,7 @@ export default function Home() {
             </div>
             <span className="font-semibold text-gray-900">EnglishHub SMA</span>
           </div>
-          <Link href="/progress" className="text-xs text-gray-400 hover:text-brand-600 transition-colors font-medium">
+          <Link href="/progress" className="text-xs text-gray-400 hover:text-brand-600 transition-colors font-medium py-2 px-1 -mx-1 min-h-[44px] flex items-center">
             Riwayat →
           </Link>
         </div>

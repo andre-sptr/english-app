@@ -136,7 +136,7 @@ export default function ProgressPage() {
           <h1 className="font-bold text-gray-900 text-lg">Riwayat & Progress</h1>
           <p className="text-xs text-gray-400">{all.length} sesi tercatat</p>
         </div>
-        <Link href="/profile" className="text-xs text-brand-600 font-medium hover:text-brand-700">
+        <Link href="/profile" className="text-xs text-brand-600 font-medium hover:text-brand-700 py-2 px-1 -mx-1 min-h-[44px] flex items-center">
           Profil →
         </Link>
       </div>
