@@ -37,3 +37,39 @@ export type PracticePhase =
   | "recording"
   | "processing"
   | "result";
+
+export interface WritingPrompt {
+  id: string;
+  type: TaskType;
+  minuteLimit: number;
+  targetWords: number;
+  topic: string;
+  context?: string;
+}
+
+export interface WritingScores {
+  content: number;       // 0-4
+  organization: number;  // 0-4
+  language_use: number;  // 0-4
+}
+
+export type WritingPhase = "idle" | "writing" | "processing" | "result";
+
+// Vocabulary SRS
+export interface VocabWord {
+  id: string;
+  word: string;
+  partOfSpeech: string;
+  definition: string;
+  example: string;
+}
+
+export interface CardState {
+  wordId: string;
+  interval: number;    // days until next review
+  easeFactor: number;  // multiplier (default 2.5)
+  repetitions: number;
+  nextReview: number;  // unix timestamp ms
+}
+
+export type SRSRating = 1 | 2 | 3 | 4; // Again / Hard / Good / Easy
