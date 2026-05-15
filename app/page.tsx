@@ -38,9 +38,9 @@ const FEATURES: {
 ];
 
 const STEPS = [
-  { icon: Target, title: "Pilih fokus harian", desc: "Mulai dari Speaking, Writing, atau Vocabulary sesuai target latihan hari ini." },
+  { icon: Target, title: "Pilih fokus harian", desc: "Mulai dari Speaking, Writing, atau Vocabulary sesuai target latihan." },
   { icon: Clock3, title: "Latihan dalam timer", desc: "Kerjakan soal dengan batas waktu yang meniru tekanan ujian TOEFL." },
-  { icon: Sparkles, title: "Perbaiki satu hal", desc: "Feedback dibuat ringkas agar kamu tahu perbaikan paling berdampak untuk sesi berikutnya." },
+  { icon: Sparkles, title: "Perbaiki satu hal", desc: "Feedback dibuat ringkas agar kamu tahu perbaikan paling berdampak." },
 ];
 
 export default function Home() {
@@ -49,16 +49,15 @@ export default function Home() {
       <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
         <div className="rounded-[2rem] border border-line bg-white px-6 py-7 shadow-premium sm:px-8 sm:py-9">
           <Pill tone="brand">
-            <Sparkles className="h-3.5 w-3.5" />
             TOEFL-Aligned AI Scoring
           </Pill>
 
           <div className="mt-7 max-w-3xl">
             <h1 className="text-4xl font-black leading-[1.06] tracking-tight text-ink sm:text-5xl xl:text-6xl">
-              Studio latihan TOEFL yang terasa serius, cepat, dan personal.
+              Studio latihan TOEFL.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-8 text-secondary">
-              EnglishHub SMA menyatukan Speaking, Writing, dan Vocabulary dalam dashboard latihan AI yang fokus pada skor rubrik dan perbaikan praktis.
+              EnglishHub menyatukan Speaking, Writing, dan Vocabulary dalam dashboard latihan AI yang fokus pada skor rubrik dan perbaikan praktis.
             </p>
           </div>
 
@@ -127,7 +126,7 @@ export default function Home() {
       </section>
 
       <p className="mt-8 text-center text-xs font-bold uppercase tracking-[0.18em] text-muted">
-        Gratis - tanpa login - data tersimpan di perangkat
+        Kejarlah mimpimu demi masa depan yang lebih baik!
       </p>
     </main>
   );
